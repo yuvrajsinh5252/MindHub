@@ -9,8 +9,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-
-    <Navbar />
-    <App />
+    <main className='font-poppins'>
+      <Navbar />
+      <App />
+    </main>
   </React.StrictMode>
 );
