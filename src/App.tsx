@@ -1,10 +1,17 @@
+import Navbar from "./components/Navbar";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from "./pages/home";
+import Dashboard from "./pages/dashboard";
+
 function App() {
   return (
-    <div className="w-full flex justify-center">
-      <div className="m-10 my-20 h-10">
-        Get started learning
-      </div>
-    </div>
+    <BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
