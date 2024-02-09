@@ -1,4 +1,4 @@
-import { handleGitHubLogin, handleGoogleLogin } from "../components/auth";
+import { handleGitHubLogin, handleGoogleLogin } from "../hooks/useAuth";
 
 export default function Login() {
     return (
