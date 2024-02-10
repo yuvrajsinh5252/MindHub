@@ -10,7 +10,7 @@ const ProtectedRoute = (
         <div>
             {
                 loading ? (
-                    <div>Loading...</div>
+                    <div>Authenticating user please wait a moment.....</div>
                 ) : (
                     isAuthenticated ? (
                         <div>{children}</div>

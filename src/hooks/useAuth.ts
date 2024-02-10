@@ -63,6 +63,18 @@ export default function useAuth () {
 
         const user = await getUser();
         if (user) {
+            await fetch("http://localhost:8081/createUser", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    id: user.id,
+                    username: user.login,
+                }),
+            }).then((response) => {
+                return response.json();
+            });
             setIsAuthenticated(true);
             setUser(user);
         }

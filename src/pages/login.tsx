@@ -1,28 +1,40 @@
+import { Button, buttonVariants } from "../components/ui/button";
 import { handleGitHubLogin, handleGoogleLogin } from "../hooks/useAuth";
 
 export default function Login() {
     return (
         <div className="flex flex-col justify-center items-center h-screen">
-            <div className="bg-gray-300 flex justify-around p-2 items-center rounded-md w-96 h-40 flex-col">
-                <div className="bg-white w-full p-1 rounded-md">
-                    <button
+            <div className="border-2 flex flex-col gap-6 rounded-lg w-[400px] max-sm:w-72">
+                <div className="flex flex-col justify-center items-center">
+                    <div className="flex justify-center p-2">
+                        <img src="/Assets/logo.png" alt="logo"
+                            className="w-32 h-32"
+                        />
+                    </div>
+                    <h1 className="font-bold text-xl">MindHub</h1>
+                </div>
+                <div className="flex flex-col gap-2 p-2 rounded-lg">
+                    <p className="text-center pb-2 text-lg font-semibold">
+                        Welcome back!
+                    </p>
+                    <Button
+                        className={buttonVariants({ variant: "secondary", size: "lg" })}
                         onClick={handleGitHubLogin}
-                        className="w-full flex items-center gap-6"
                     >
                         <img
-                            className="w-12 h-12"
+                            className="w-11 h-9 pr-1"
                             src="/Assets/github_logo.png" alt="github" />
-                        Github Login</button>
-                </div>
-                <div className="bg-white w-full p-1 rounded-md">
-                    <button
-                        onClick={handleGoogleLogin}
-                        className="w-full flex items-center gap-6"
+                        <p className="text-lg">Login with Github</p>
+                    </Button>
+                    <Button
+                        className={buttonVariants({ variant: "secondary", size: "lg" })}
+                        onClick={handleGitHubLogin}
                     >
                         <img
                             className="w-12 h-12"
                             src="/Assets/google_logo.png" alt="google" />
-                        Google Login</button>
+                        <p className="text-lg">Login with Google</p>
+                    </Button>
                 </div>
             </div>
         </div>
