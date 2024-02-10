@@ -73,15 +73,11 @@ export default function useAuth () {
     useEffect(() => {
         const code = new URLSearchParams(search).get('code');
         if (code) handleCallback(code);
+        else setLoading(false);
     }, []);
-
-    // useEffect(() => {
-    //     console.log(isAuthenticated);
-    // }, [isAuthenticated]);
 
     return {
         isAuthenticated,
-        getAccessToken,
         handleCallback,
         handleGitHubLogin,
         handleGoogleLogin,
