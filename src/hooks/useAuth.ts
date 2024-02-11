@@ -19,6 +19,7 @@ export default function useAuth () {
 
     const handleLogout = () => {
         localStorage.removeItem("access_token");
+        window.location.assign("http://localhost:3000");
         setIsAuthenticated(false);
     }
 

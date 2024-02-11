@@ -4,15 +4,14 @@ export async function fakeFetching() {
 }
 
 export async function getUserData() {
-    const data = await fetch("http://localhost:8081/getUserFromDB", {
+    const response = await fetch("http://localhost:8081/getUserFromDB", {
         method: "GET",
         headers: {
-            apllicaiton: "application/json",
+            "Content-Type": "application/json",
         },
-        body: JSON.stringify(117096680),
-    }).then((res) => res.json());
+    }).then((response) => {
+        return response.json();
+    })
 
-    console.log(data);
-
-    return data;
+    return response;
 }
