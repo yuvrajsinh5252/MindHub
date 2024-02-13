@@ -1,20 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
-import { getUserData } from "../querry/db";
+import { getUserData } from "../querries/db";
 
 export default function Dashboard() {
-    const { data, isLoading, error } = useQuery({
-        queryKey: ["userData"],
+    const { data: user, isLoading, error } = useQuery({
+        queryKey: ["user"],
         queryFn: getUserData,
     });
 
     if (isLoading) return <div>Loading...</div>;
-    if (error) return <div>Error</div>;
+    if (error) return <div>User not authorized</div>;
 
     return (
         <div className="m-auto flex items-center mt-10 flex-col">
             <h1>Dashboard</h1>
             <div>
-                <h2>welcome  {data.username}</h2>
+                <h2>welcome  {user?.data.login}</h2>
             </div>
         </div>
     );

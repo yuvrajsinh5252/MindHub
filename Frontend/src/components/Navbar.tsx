@@ -10,13 +10,7 @@ const noNavbarRoute = ["/login", "/register"];
 
 export default function Navbar() {
     const { pathname } = useLocation();
-    const [code, setCode] = useState("");
     const navigation = useNavigate();
-
-    useEffect(() => {
-        const code = new URLSearchParams(window.location.search).get("code");
-        if (code) setCode(code);
-    }, []);
 
     const {
         handleLogout,
@@ -37,13 +31,13 @@ export default function Navbar() {
                         </h1>
                         <div className="max-sm:hidden w-[350px] divide-x-2 cursor-pointer flex items-center">
                             <div>
-                                <a href={"/?code=" + code} className="w-full text-center hover:border-b-2 mx-2 border-gray-400">
+                                <a href={"/"} className="w-full text-center hover:border-b-2 mx-2 border-gray-400">
                                     Home
                                 </a>
-                                <a href={"/Dashboard/?code=" + code} className="w-full text-center hover:border-b-2 mx-2 border-gray-400">
+                                <a href={"/Dashboard"} className="w-full text-center hover:border-b-2 mx-2 border-gray-400">
                                     About
                                 </a>
-                                <a href={"/Contact/?code=" + code} className="w-full text-center hover:border-b-2 mx-2 border-gray-400">
+                                <a href={"/Contact"} className="w-full text-center hover:border-b-2 mx-2 border-gray-400">
                                     Contact
                                 </a>
                             </div>
@@ -66,9 +60,15 @@ export default function Navbar() {
                                                 <DropdownMenuContent>
                                                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
                                                     <DropdownMenuSeparator />
-                                                    <DropdownMenuItem>Profile</DropdownMenuItem>
-                                                    <DropdownMenuItem>Billing</DropdownMenuItem>
-                                                    <DropdownMenuItem>courses</DropdownMenuItem>
+                                                    <DropdownMenuItem
+                                                        onClick={() => navigation("/profile")}
+                                                    >Profile</DropdownMenuItem>
+                                                    <DropdownMenuItem
+                                                        onClick={() => navigation("/billing")}
+                                                    >Billing</DropdownMenuItem>
+                                                    <DropdownMenuItem
+                                                        onClick={() => navigation("/courses")}
+                                                    >courses</DropdownMenuItem>
                                                     <DropdownMenuItem>Subscription</DropdownMenuItem>
                                                     <DropdownMenuItem
                                                         onClick={handleLogout}

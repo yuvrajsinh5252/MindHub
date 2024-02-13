@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import axios from '../api/axios';
 
 export const handleGitHubLogin = async () => {
     const CLIENT_ID = process.env.REACT_APP_ID;
@@ -24,35 +25,31 @@ export default function useAuth () {
     }
 
     async function getAccessToken(code: string) {
-        await fetch("http://localhost:8081/getAccessToken?code=" + code, {
-            method: "GET",
-        }).then((response) => {
-            return response.json();
-        }).then((data) => {
-            if (data.access_token) {
-                localStorage.setItem("access_token", data.access_token);
+        const { data } = await axios.get("/auth/getAccessToken?code=" + code, {
+            headers: {
+                "Accept": "application/json",
             }
-        })
+        });
+        if (data && data.access_token) {
+            localStorage.setItem("access_token", data.access_token);
+        }
     }
 
     async function getUser() {
         const accessToken = localStorage.getItem("access_token");
 
         if (accessToken) {
-            const user = await fetch("http://localhost:8081/getUser?access_token=" + accessToken, {
-                method: "GET",
+            const { data } = await axios.get("/auth/getUser?access_token=" + accessToken, {
                 headers: {
-                    "Authorization": "token " + accessToken,
+                    "Authorization": "Bearer " + accessToken,
                 }
-            }).then((response) => {
-                return response.json();
-            })
-
-            if (user) {
+            });
+            if (data) {
                 setIsAuthenticated(true);
-                setUser(user);
+                setLoading(false);
+                setUser(data);
             }
-            return user;
+            return data;
         }
 
         return null;
@@ -64,18 +61,11 @@ export default function useAuth () {
 
         const user = await getUser();
         if (user) {
-            await fetch("http://localhost:8081/createUser", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    id: user.id,
-                    username: user.login,
-                }),
-            }).then((response) => {
-                return response.json();
-            });
+            // await axios.post("/createUser", {
+            //     id: user.id,
+            //     username: user.login,
+            // });
+
             setIsAuthenticated(true);
             setUser(user);
         }
@@ -85,7 +75,9 @@ export default function useAuth () {
 
     useEffect(() => {
         const code = new URLSearchParams(search).get('code');
+        let access_token = localStorage.getItem("access_token");
         if (code) handleCallback(code);
+        else if (access_token) getUser();
         else setLoading(false);
     }, []);
 
