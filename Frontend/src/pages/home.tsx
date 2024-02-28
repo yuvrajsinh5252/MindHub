@@ -1,7 +1,16 @@
 import { ArrowRight } from "lucide-react";
 import { Button, buttonVariants } from "../components/ui/button";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+    const [authorized, setAuthorized] = useState("./login");
+
+    useEffect(() => {
+        const accessToken = localStorage.getItem("access_token");
+        if (accessToken) setAuthorized("./dashboard");
+        console.log(accessToken);
+    }, []);
+
     return (
         <div className="flex py-40 items-center flex-col gap-16 h-[calc(100vh-4rem)]">
             <div>
@@ -21,7 +30,7 @@ export default function Home() {
                         className={buttonVariants({
                             variant: "default",
                         })}
-                        onClick={() => window.location.assign("/login")}
+                        onClick={() => window.location.assign(authorized)}
                     >
                         <p className="text-base">Get Started</p>
                         <ArrowRight className="w-6 h-6" />

@@ -44,6 +44,14 @@ export default function useAuth () {
                     "Authorization": "Bearer " + accessToken,
                 }
             });
+
+            // check whether the the res.json is an error message
+            if (data.message) {
+                setIsAuthenticated(false);
+                setLoading(false);
+                return null;
+            }
+
             if (data) {
                 setIsAuthenticated(true);
                 setLoading(false);
@@ -61,10 +69,10 @@ export default function useAuth () {
 
         const user = await getUser();
         if (user) {
-            // await axios.post("/createUser", {
-            //     id: user.id,
-            //     username: user.login,
-            // });
+            await axios.post("/createUser", {
+                id: user.id,
+                username: user.login,
+            });
 
             setIsAuthenticated(true);
             setUser(user);

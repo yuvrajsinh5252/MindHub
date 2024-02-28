@@ -1,7 +1,5 @@
 export const isUserAuthenticated = async (req: any, res: any, next: any) => {
     try {
-        console.log(req.originalUrl);
-
         const routesToExclude = ['/auth/getAccessToken', '/createUser'];
 
         //  not to use this middleware on certain routes

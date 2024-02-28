@@ -1,5 +1,6 @@
-const CLIENT_ID = "d524652646969f7502cc";
-const CLIENT_SECRET = "7a901ea4427a1fddb27c1f5891617bd78ebcb79b";
+require('dotenv').config();
+const CLIENT_ID = process.env.CLIENT_ID;
+const CLIENT_SECRET = process.env.CLIENT_SECRET;
 
 export const getAuthenticatedUser = async (req: any, res: any) => {
     try {
