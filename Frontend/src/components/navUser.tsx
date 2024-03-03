@@ -15,7 +15,7 @@ export default function NavUser() {
     const navigation = useNavigate();
 
     return (
-        <div className="flex gap-2 items-center justify-end w-[100px]">
+        <div className="flex gap-4 items-center justify-end px-2">
             <ModeToggle />
             <div>
                 {
@@ -24,7 +24,7 @@ export default function NavUser() {
                             <DropdownMenuTrigger>
                                 <div className='h-10 flex justify-center flex-col items-center'>
                                     <img
-                                        className='lg:w-10 lg:h-9 w-8 h-7 rounded-full'
+                                        className='lg:w-10 lg:h-10 w-8 h-8 rounded-full'
                                         src={user.avatar_url}
                                         alt={user.login}
                                         onClick={handleLogout}
