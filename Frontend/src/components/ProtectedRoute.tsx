@@ -10,8 +10,8 @@ const ProtectedRoute = (
         <div className="flex justify-center items-center">
             {
                 loading ? (
-                    <div className="flex gap-5 pt-20">
-                        Authenticating user please wait a moment...
+                    <div className="flex gap-5 lg:pt-20">
+                        Authenticating please wait a moment...
                         <Loader2 className="animate-spin" />
                     </div>
                 ) : (

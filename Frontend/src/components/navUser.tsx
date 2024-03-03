@@ -2,8 +2,9 @@ import useAuth from "../hooks/useAuth";
 import { Loader2 } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { ModeToggle } from "./Theme-toggle";
+import { useNavigate } from "react-router-dom";
 
-export default function NavUser(navigation: any) {
+export default function NavUser() {
     const {
         handleLogout,
         isAuthenticated,
@@ -11,8 +12,10 @@ export default function NavUser(navigation: any) {
         user,
     } = useAuth();
 
+    const navigation = useNavigate();
+
     return (
-        <div className="flex gap-2 mx-2 items-center justify-end w-[100px]">
+        <div className="flex gap-2 items-center justify-end w-[100px]">
             <ModeToggle />
             <div>
                 {
@@ -50,12 +53,12 @@ export default function NavUser(navigation: any) {
                         </DropdownMenu>
                     ) : (
                         loading ? (
-                            <div className="flex mx-2 justify-center items-center">
+                            <div className="flex mx-1 justify-center items-center">
                                 <Loader2 className="animate-spin" />
                             </div>
                         ) : (
                             <button
-                                className='text-center hover:border-b-2 mx-2 border-gray-400'
+                                className='text-center bg-black text-white rounded-md px-2 py-1 hover:bg-gray-600 transition-all duration-300 ease-in-out'
                                 onClick={() => navigation("/login")}>
                                 Login
                             </button>

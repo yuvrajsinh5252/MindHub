@@ -1,5 +1,5 @@
 import { Button, buttonVariants } from "../components/ui/button";
-import { handleGitHubLogin, handleGoogleLogin } from "../hooks/useAuth";
+import { handleGitHubLogin } from "../hooks/useAuth";
 
 export default function Login() {
     return (
@@ -25,15 +25,6 @@ export default function Login() {
                             className="w-11 h-9 pr-1"
                             src="/Assets/github_logo.png" alt="github" />
                         <p className="text-lg">Login with Github</p>
-                    </Button>
-                    <Button
-                        className={buttonVariants({ variant: "secondary", size: "lg" })}
-                        onClick={handleGitHubLogin}
-                    >
-                        <img
-                            className="w-12 h-12"
-                            src="/Assets/google_logo.png" alt="google" />
-                        <p className="text-lg">Login with Google</p>
                     </Button>
                 </div>
             </div>

@@ -3,14 +3,9 @@ import { useLocation } from 'react-router-dom';
 import axios from '../api/axios';
 
 export const handleGitHubLogin = async () => {
-    const CLIENT_ID = process.env.REACT_APP_ID;
+    const CLIENT_ID = process.env.REACT_APP_GITHUB_ID;
     window.location.assign("https://github.com/login/oauth/authorize?client_id=" + CLIENT_ID);
 };
-
-export const handleGoogleLogin = async () => {
-    const CLIENT_ID = process.env.REACT_APP_GOOGLE_ID;
-    window.location.assign("https://accounts.google.com/o/oauth2/v2/auth?client_id=" + CLIENT_ID + "&redirect_uri=http://localhost:3000&response_type=token&scope=https://www.googleapis.com/auth/userinfo.profile");
-}
 
 export default function useAuth () {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -73,7 +68,7 @@ export default function useAuth () {
 
         const user = await getUser();
         if (user) {
-            await axios.post("/createUser", {
+            await axios.post("/db/createUser", {
                 id: user.id,
                 username: user.login,
             });
@@ -99,7 +94,6 @@ export default function useAuth () {
         isAuthenticated,
         handleCallback,
         handleGitHubLogin,
-        handleGoogleLogin,
         handleLogout,
         user,
         loading,

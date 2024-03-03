@@ -1,12 +1,11 @@
 import Hamburger from "./Hamburger";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import NavUser from "./navUser";
 
 const noNavbarRoute = ["/login", "/register"];
 
 export default function Navbar() {
     const { pathname } = useLocation();
-    const navigation = useNavigate();
 
     if (noNavbarRoute.some((route) => route === pathname)) return null;
 
@@ -18,7 +17,7 @@ export default function Navbar() {
                         <h1 className="dark:text-white font-bold text-gray-700 text-2xl max-sm:text-[20px]">
                             MindHub
                         </h1>
-                        <div className="w-[320px] max-sm:w-28 lg:divide-x-2 cursor-pointer flex items-center justify-center">
+                        <div className="w-[320px] max-sm:w-36 lg:divide-x-2 cursor-pointer flex justify-center items-center gap-2">
                             <div className="max-sm:hidden">
                                 <a href={"/"} className="w-full text-center hover:border-b-2 mx-2 border-gray-400">
                                     Home
@@ -30,7 +29,7 @@ export default function Navbar() {
                                     Contact
                                 </a>
                             </div>
-                            <NavUser navigation={navigation} />
+                            <NavUser />
                             <Hamburger />
                         </div>
                     </div>
