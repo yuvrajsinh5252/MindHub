@@ -11,7 +11,7 @@ export default function TopBar() {
                     <span className="lg:block hidden">Search</span>
                 </button>
             </div>
-            <div className="text-black px-2 w-[150px]">
+            <div className="text-black px-2 w-[200px]">
                 <NavUser />
             </div>
         </div>

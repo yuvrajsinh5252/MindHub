@@ -14,24 +14,25 @@ export default function Dashboard() {
     if (error) return <div>User not authorized</div>;
 
     return (
-        <div className="w-full bg-black h-screen flex items-end justify-end">
-            <div className="max-sm:hidden text-white flex justify-start h-screen w-1/6">
+        <div className="w-full h-screen bg-black flex items-end justify-end">
+            <div className="max-sm:hidden text-white flex justify-start h-full w-1/6">
                 <Sidebar />
             </div>
-            <div className="h-screen w-full p-2">
-                <div className="h-[8%] text-white">
+            <div className="h-full w-full px-2">
+                <div className="h-[7%] min-h-12 text-white">
                     <TopBar />
                 </div>
                 <div className="bg-white rounded-xl divide-y-2 h-[92%] p-2">
                     {
                         isLoading ? <Skeleton className="h-[125px] w-[250px] rounded-xl" /> :
-                        <div className="flex items-center h-24 gap-4 px-2 text-2xl font-semibold space-y-3">
-                            welcome back, {user?.data?.login}
-                            <LeafyGreen size={32} />
+                        <div className="flex flex-col p-2 h-24 font-[600] text-gray-500">
+                            Welcome back
+                            <div className="text-3xl font-semibold text-black space-y-3">
+                                {user?.data?.login}
+                            </div>
                         </div>
                     }
                     <div>
-                        asdasd
                     </div>
                 </div>
             </div>
