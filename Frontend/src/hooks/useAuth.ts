@@ -16,6 +16,8 @@ export default function useAuth () {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [user, setUser] = useState<any>(null);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
+
     const { search } = useLocation();
 
     const handleLogout = () => {
@@ -32,6 +34,8 @@ export default function useAuth () {
         });
         if (data && data.access_token) {
             localStorage.setItem("access_token", data.access_token);
+        } else {
+            setError("Failed to get access token");
         }
     }
 
@@ -76,6 +80,8 @@ export default function useAuth () {
 
             setIsAuthenticated(true);
             setUser(user);
+        } else {
+            setError("Failed to authenticate user, please try again.");
         }
 
         setLoading(false);
@@ -97,5 +103,6 @@ export default function useAuth () {
         handleLogout,
         user,
         loading,
+        error,
     }
 };

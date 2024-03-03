@@ -4,13 +4,14 @@
   "rsc": true,
   "tsx": true,
   "tailwind": {
-    "config": "tailwind.config.ts",
-    "css": "src/app/global.css",
+    "config": "tailwind.config.js",
+    "css": "src/global.css",
     "baseColor": "zinc",
-    "cssVariables": true
+    "cssVariables": true,
+    "prefix": ""
   },
   "aliases": {
-    "components": "src/app/components",
-    "utils": "src/app/lib"
+    "components": "@/components",
+    "utils": "@/lib/utils"
   }
 }

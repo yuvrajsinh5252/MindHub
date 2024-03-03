@@ -7,7 +7,7 @@ export default function Dashboard() {
         queryFn: getUserData,
     });
 
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading) return <div className="pt-20">Loading content...</div>;
     if (error) return <div>User not authorized</div>;
 
     return (

@@ -6,16 +6,23 @@ import Login from "./pages/login";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Courses from "./pages/courses";
 import Profile from "./pages/profile";
+import { Toaster } from "./components/ui/toaster";
 
 function App() {
   return (
     <BrowserRouter>
       <Navbar />
+      <Toaster />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
           path="/dashboard"
-          element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path="/courses" element={<ProtectedRoute><Courses /></ProtectedRoute>} />
