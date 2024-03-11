@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  plugins: ['prettier-plugin-tailwindcss'],
   darkMode: ["class"],
   content: [
     "./pages/**/*.{ts,tsx}",

@@ -1,8 +1,8 @@
 import Hamburger from "./Hamburger";
 import { useLocation } from "react-router-dom";
-import NavUser from "./navUser";
+import NavUser from "./Navuser";
 
-const noNavbarRoute = ["/login", "/register", "/dashboard"];
+const noNavbarRoute = ["/login", "/register", "/dashboard", "/courses"];
 
 export default function Navbar() {
     const { pathname } = useLocation();

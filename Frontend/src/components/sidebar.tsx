@@ -1,8 +1,17 @@
 import useAuth from "src/hooks/useAuth";
 import { Book, GraduationCap, LayoutDashboard, LogOut, Mails, Radio, Settings } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export default function Sidebar() {
+    const [path, setPath] = useState<string>("/dashboard");
     const { handleLogout } = useAuth();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        setPath(window.location.pathname);
+        console.log(path)
+    }, [window.location.pathname]);
 
     return (
         <div className="min-w-52 h-full max-sm:hidden text-white flex justify-start flex-col overflow-x-hidden overflow-y-scroll">
@@ -11,27 +20,43 @@ export default function Sidebar() {
                 MindHub
             </div>
             <div className="flex flex-col gap-5 items-start h-full px-2 pt-10 pb-10">
-                <button className="flex gap-3 items-start bg-black focus:bg-white focus:text-black rounded-lg p-2 w-full min-w-32">
+                <button
+                    onClick={() => navigate("/dashboard")}
+                    className={"flex gap-3 items-start bg-black rounded-lg p-2 w-full min-w-32" +
+                        (path === "/dashboard" ? " bg-white text-black" : "")
+                    }>
                     <LayoutDashboard />
                     Dashboard
                 </button>
-                <button className="flex gap-3 items-start bg-black focus:bg-white focus:text-black rounded-lg p-2 w-full min-w-32">
+                <button
+                    className={"flex gap-3 items-start bg-black rounded-lg p-2 w-full min-w-32" +
+                        (path === "/Browsecourses" ? " bg-white text-black" : "")
+                    }>
                     <Book />
                     Browse Courses
                 </button>
-                <button className="flex gap-3 items-start bg-black focus:bg-white focus:text-black rounded-lg p-2 w-full min-w-32">
+                <button
+                    onClick={() => navigate("/courses")}
+                    className={"flex gap-3 items-start bg-black rounded-lg p-2 w-full min-w-32" +
+                        (path === "/courses" ? " bg-white text-black" : "")
+                    }>
                     <Book />
                     My Courses
                 </button>
-                <button className="flex gap-3 items-start bg-black focus:bg-white focus:text-black rounded-lg p-2 w-full min-w-32">
+                <button
+                    className="flex gap-3 items-start bg-black rounded-lg p-2 w-full min-w-32">
                     <Radio />
                     Live
                 </button>
-                <button className="flex gap-3 items-start bg-black focus:bg-white focus:text-black rounded-lg p-2 w-full min-w-32">
+                <button className="flex gap-3 items-start bg-black rounded-lg p-2 w-full min-w-32">
                     <Mails />
                     Messages
                 </button>
-                <button className="flex gap-3 items-start bg-black focus:bg-white focus:text-black rounded-lg p-2 w-full min-w-32">
+                <button
+                    onClick={() => navigate("/settings")}
+                    className={"flex gap-3 items-start bg-black rounded-lg p-2 w-full min-w-32" +
+                        (path === "/settings" ? " bg-white text-black" : "")
+                    }>
                     <Settings />
                     Settings
                 </button>

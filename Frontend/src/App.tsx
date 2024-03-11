@@ -4,7 +4,7 @@ import Home from "./pages/home";
 import Dashboard from "./pages/dashboard";
 import Login from "./pages/login";
 import ProtectedRoute from "./components/ProtectedRoute";
-import Courses from "./pages/courses";
+import MyCourses from "./pages/Mycourses";
 import Profile from "./pages/profile";
 import { Toaster } from "./components/ui/toaster";
 
@@ -25,7 +25,7 @@ function App() {
         />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-        <Route path="/courses" element={<ProtectedRoute><Courses /></ProtectedRoute>} />
+        <Route path="/courses" element={<ProtectedRoute><MyCourses /></ProtectedRoute>} />
       </Routes>
     </BrowserRouter>
   );

@@ -22,16 +22,16 @@ export default function NavUser() {
     const navigation = useNavigate();
 
     return (
-        <div className="flex gap-4 items-center justify-end px-2">
+        <div className="h-10 flex gap-4 items-center justify-end px-2">
             <ModeToggle />
             <div>
                 {
                     isAuthenticated ? (
                         <DropdownMenu>
                             <DropdownMenuTrigger>
-                                <div className='h-10 flex justify-center flex-col items-center'>
+                                <div className='flex justify-center items-center'>
                                     <img
-                                        className='lg:w-10 lg:h-10 w-8 h-8 rounded-full'
+                                        className='lg:w-9 lg:h-9 w-8 h-8 rounded-full'
                                         src={user.avatar_url}
                                         alt={user.login}
                                         onClick={handleLogout}
@@ -60,12 +60,12 @@ export default function NavUser() {
                         </DropdownMenu>
                     ) : (
                         loading ? (
-                            <div className="flex mx-1 justify-center items-center">
-                                <Loader2 className="animate-spin" />
+                            <div className="flex justify-center items-center">
+                                <Loader2 className="text-white animate-spin lg:w-9 lg:h-9 w-8 h-8" />
                             </div>
                         ) : (
                             <button
-                                className='text-center bg-black text-white rounded-md px-2 py-1 hover:bg-gray-600 transition-all duration-300 ease-in-out'
+                                className='text-center bg-black text-white rounded-md px-2 hover:bg-gray-600 transition-all duration-300 ease-in-out'
                                 onClick={() => navigation("/login")}>
                                 Login
                             </button>
