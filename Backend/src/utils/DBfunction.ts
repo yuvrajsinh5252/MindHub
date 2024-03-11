@@ -1,5 +1,9 @@
 const Pool = require("../db");
 
+/*
+  This function is used to create a new user in the database.
+  It takes in the user id and username and creates a new user if the user doesn't exist in the database.
+*/
 export const createUser = async (req: any, res: any) => {
   const { id, username } = req.body;
 
@@ -8,6 +12,7 @@ export const createUser = async (req: any, res: any) => {
   try {
     // first check if user already exists
     const user = await Pool.query("SELECT * FROM user_data WHERE id = $1", [id]);
+
     if (user.rows.length > 0) return res.json("User already exists");
     else {
       const newUser = await Pool.query(
