@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@neondatabase/serverless':
+    specifier: ^0.9.0
+    version: 0.9.0
   cors:
     specifier: ^2.8.5
     version: 2.8.5
@@ -13,7 +16,7 @@ dependencies:
     version: 16.4.1
   drizzle-orm:
     specifier: ^0.30.1
-    version: 0.30.1(@types/pg@8.11.0)(pg@8.11.3)
+    version: 0.30.1(@neondatabase/serverless@0.9.0)(@types/pg@8.11.0)(pg@8.11.3)
   express:
     specifier: ^4.18.2
     version: 4.18.2
@@ -506,6 +509,12 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
 
+  /@neondatabase/serverless@0.9.0:
+    resolution: {integrity: sha512-mmJnUAzlzvxNSZuuhI6kgJjH+JgFdBMYUWxihtq/nj0Tjt+Y5UU3W+SvRFoucnd5NObYkuLYQzk+zV5DGFKGJg==}
+    dependencies:
+      '@types/pg': 8.6.6
+    dev: false
+
   /@tsconfig/node10@1.0.9:
     resolution: {integrity: sha512-jNsYVVxU8v5g43Erja32laIDHXeoNvFEpX33OK4d6hljo3jDhCBDhx5dhCCTMWUojscpAagGiRkBKxpdl9fxqA==}
     dev: true
@@ -576,6 +585,14 @@ packages:
       '@types/node': 20.11.16
       pg-protocol: 1.6.0
       pg-types: 4.0.2
+
+  /@types/pg@8.6.6:
+    resolution: {integrity: sha512-O2xNmXebtwVekJDD+02udOncjVcMZQuTEQEMpKJ0ZRf5E7/9JJX3izhKUcUifBkyKpljyUM6BTgy2trmviKlpw==}
+    dependencies:
+      '@types/node': 20.11.16
+      pg-protocol: 1.6.0
+      pg-types: 2.2.0
+    dev: false
 
   /@types/qs@6.9.11:
     resolution: {integrity: sha512-oGk0gmhnEJK4Yyk+oI7EfXsLayXatCWPHary1MtcmbAifkobT9cM9yutG/hZKIseOU0MqbIwQ/u2nn/Gb+ltuQ==}
@@ -922,7 +939,7 @@ packages:
       - supports-color
     dev: true
 
-  /drizzle-orm@0.30.1(@types/pg@8.11.0)(pg@8.11.3):
+  /drizzle-orm@0.30.1(@neondatabase/serverless@0.9.0)(@types/pg@8.11.0)(pg@8.11.3):
     resolution: {integrity: sha512-5P6CXl4XyWtDDiYOX/jYOJp1HTUmBlXRAwaq+muUOgaSykMEy5sJesCxceMT0oCGvxeWkKfSXo5owLnfKwCIdw==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
@@ -996,6 +1013,7 @@ packages:
       sqlite3:
         optional: true
     dependencies:
+      '@neondatabase/serverless': 0.9.0
       '@types/pg': 8.11.0
       pg: 8.11.3
     dev: false

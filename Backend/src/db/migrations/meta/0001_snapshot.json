@@ -1,6 +1,6 @@
 {
-  "id": "186cfc42-09bb-4ab7-a58d-bc86ecdaad12",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "59288f31-b486-40ea-9f4f-3e6101d4a94b",
+  "prevId": "186cfc42-09bb-4ab7-a58d-bc86ecdaad12",
   "version": "5",
   "dialect": "pg",
   "tables": {
@@ -11,7 +11,7 @@
         "id": {
           "name": "id",
           "type": "serial",
-          "primaryKey": false,
+          "primaryKey": true,
           "notNull": true
         },
         "name": {

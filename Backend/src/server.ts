@@ -1,5 +1,5 @@
-import { getAccessToken, getAuthenticatedUser } from "./utils/Auth";
-import { createUser } from "./utils/DBfunction";
+import { getAccessToken, getAuthenticatedUser } from "./Routes/Auth";
+import { createUser } from "./Routes/DBfunction";
 import { isAdmin } from "./middleware";
 
 const express = require('express');
