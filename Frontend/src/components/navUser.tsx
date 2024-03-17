@@ -65,7 +65,7 @@ export default function NavUser() {
                             </div>
                         ) : (
                             <button
-                                className='text-center bg-black text-white rounded-md px-2 hover:bg-gray-600 transition-all duration-300 ease-in-out'
+                                className='text-center bg-black text-white rounded-md px-2 hover:bg-gray-600 transition-all duration-300 ease-in-out py-1'
                                 onClick={() => navigation("/login")}>
                                 Login
                             </button>

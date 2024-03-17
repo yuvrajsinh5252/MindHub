@@ -30,4 +30,4 @@ root.render(
 // github auth was not working because of this
 // we request an access token from github api on the first render
 // and then we request it again on the second render which causes the error
-{/* </React.StrictMode> */ }
+/* </React.StrictMode> */

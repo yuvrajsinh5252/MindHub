@@ -13,7 +13,7 @@ export default function TopBar() {
         <div className="w-full flex gap-2">
           <input
             type="text"
-            className="text-black max-sm:hidden focus:outline-none w-2/6 min-w-40 h-10 rounded-md p-2"
+            className="dark:text-white text-black max-sm:hidden focus:outline-none w-2/6 min-w-40 h-10 rounded-md p-2"
             placeholder="Search"
           />
           <PopoverTrigger>

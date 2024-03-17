@@ -10,8 +10,7 @@ export default function Sidebar() {
 
     useEffect(() => {
         setPath(window.location.pathname);
-        console.log(path)
-    }, [window.location.pathname]);
+    }, []);
 
     return (
         <div className="min-w-52 h-full max-sm:hidden text-white flex justify-start flex-col overflow-x-hidden overflow-y-scroll">
@@ -29,6 +28,7 @@ export default function Sidebar() {
                     Dashboard
                 </button>
                 <button
+                    onClick={() => navigate("/Browsecourses")}
                     className={"flex gap-3 items-start bg-black rounded-lg p-2 w-full min-w-32" +
                         (path === "/Browsecourses" ? " bg-white text-black" : "")
                     }>
@@ -44,11 +44,18 @@ export default function Sidebar() {
                     My Courses
                 </button>
                 <button
-                    className="flex gap-3 items-start bg-black rounded-lg p-2 w-full min-w-32">
+                    onClick={() => navigate("/Live")}
+                    className={"flex gap-3 items-start bg-black rounded-lg p-2 w-full min-w-32" +
+                        (path === "/Live" ? " bg-white text-black" : "")
+                    }>
                     <Radio />
                     Live
                 </button>
-                <button className="flex gap-3 items-start bg-black rounded-lg p-2 w-full min-w-32">
+                <button
+                    onClick={() => navigate("/Messages")}
+                    className={"flex gap-3 items-start bg-black rounded-lg p-2 w-full min-w-32" +
+                        (path === "/Messages" ? " bg-white text-black" : "")
+                }>
                     <Mails />
                     Messages
                 </button>

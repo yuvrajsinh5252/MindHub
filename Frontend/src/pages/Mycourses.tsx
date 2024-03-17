@@ -9,8 +9,8 @@ export default function MyCourses() {
                 <TopBar />
 
                 {/* page content starts */}
-                <div className="bg-white rounded-xl divide-y-2 p-2 h-[calc(100%-4rem)] overflow-y-scroll">
-                    My Courses
+                <div className="bg-white no-scrollbar dark:bg-zinc-900 dark:text-white rounded-xl divide-y-2 p-2 h-[calc(100%-4rem)] overflow-y-scroll scroll-smooth">
+                    My  Courses
                 </div>
                 {/* page content ends */}
             </div>

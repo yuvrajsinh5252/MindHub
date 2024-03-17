@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from '../api/axios';
 
@@ -7,11 +7,12 @@ export const handleGitHubLogin = async () => {
     window.location.assign("https://github.com/login/oauth/authorize?client_id=" + CLIENT_ID);
 };
 
-export default function useAuth () {
+export default function useAuth() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [user, setUser] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const [isRole, setIsRole] = useState(false);
 
     const { search } = useLocation();
 
@@ -34,7 +35,7 @@ export default function useAuth () {
         }
     }
 
-    async function getUser() {
+    const getUser = useCallback(async () => {
         const accessToken = localStorage.getItem("access_token");
 
         if (accessToken) {
@@ -43,6 +44,11 @@ export default function useAuth () {
                     "Authorization": "Bearer " + accessToken,
                 }
             });
+
+            const role = await getRole(data.id);
+
+            if (role == 'user' || role == 'creater') setIsRole(true);
+            else setIsRole(false);
 
             // check whether the the res.json is an error message
             if (data.message) {
@@ -58,11 +64,14 @@ export default function useAuth () {
             }
             return data;
         }
+    }, [setIsAuthenticated, setLoading, setUser, setIsRole]);
 
-        return null;
-    }
+    const getRole = async (id: {id: number}) => {
+        const { data } = await axios.post("/db/getRole", {id: id})
+        return data;
+    };
 
-    const handleCallback = async (code: string) => {
+    const handleCallback = useCallback(async (code: string) => {
         const access_token = localStorage.getItem("access_token");
         if (code && (access_token == null)) await getAccessToken(code);
 
@@ -71,6 +80,7 @@ export default function useAuth () {
             await axios.post("/db/createUser", {
                 id: user.id,
                 username: user.login,
+                email: user.email,
             });
 
             setIsAuthenticated(true);
@@ -80,7 +90,7 @@ export default function useAuth () {
         }
 
         setLoading(false);
-    };
+    }, [getUser])
 
     useEffect(() => {
         const code = new URLSearchParams(search).get('code');
@@ -88,7 +98,7 @@ export default function useAuth () {
         if (code) handleCallback(code);
         else if (access_token) getUser();
         else setLoading(false);
-    }, []);
+    }, [handleCallback, search, getUser]);
 
     return {
         isAuthenticated,
@@ -98,5 +108,6 @@ export default function useAuth () {
         user,
         loading,
         error,
+        isRole,
     }
 };

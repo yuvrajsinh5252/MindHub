@@ -7,3 +7,7 @@ export async function getUserData() {
         },
     });
 }
+
+export async function getRole(id: number) {
+    return axios.post("/db/getRole", { id: id });
+}
