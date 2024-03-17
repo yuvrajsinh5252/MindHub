@@ -12,14 +12,20 @@ export default function Roles() {
 
     return (
         <div className="flex justify-center items-center h-screen">
-            <div className="flex justify-center border-2 rounded-md flex-col gap-5 items-center p-8">
-                <div className="flex gap-3 w-20">
-                    <input type="radio" id="user" name="role" value="user" onChange={(e) => setRole(e.target.value)} />
-                    <label className="font-semibold" htmlFor="user">User</label>
+            <div className="flex justify-center border-2 rounded-md flex-col gap-5 p-8">
+                <div className="flex gap-3 w-22">
+                    <input type="radio" id="user" name="role" value="user"
+                        className="w-4 h-4 rounded-full appearance-none border border-gray-300 bg-white checked:bg-blue-500 checked:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:ring-offset-0"
+                        onChange={(e) => setRole(e.target.value)}
+                    />
+                    <label className="font-semibold text-xl" htmlFor="user">User</label>
                 </div>
-                <div className="flex gap-3 w-20">
-                    <input type="radio" id="creater" name="role" value="creater" onChange={(e) => setRole(e.target.value)} />
-                    <label className="font-semibold" htmlFor="creater">Creater</label>
+                <div className="flex gap-3 w-22">
+                    <input type="radio" id="creater" name="role" value="creater"
+                        className="w-4 h-4 rounded-full appearance-none border border-gray-300 bg-white checked:bg-blue-500 checked:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:ring-offset-0"
+                        onChange={(e) => setRole(e.target.value)}
+                    />
+                    <label className="font-semibold text-xl" htmlFor="creater">Creater</label>
                 </div>
 
                 <button

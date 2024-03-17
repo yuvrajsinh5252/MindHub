@@ -1,9 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { getRole, getUserData } from "../querries/db";
+import { getRole, getUserData } from "../../querries/db";
 import { Skeleton } from "src/components/ui/skeleton";
 import Sidebar from "src/components/sidebar";
 import TopBar from "src/components/Topbar";
-import { useEffect } from "react";
 
 export default function Dashboard() {
     const { data: user, isLoading, error } = useQuery({

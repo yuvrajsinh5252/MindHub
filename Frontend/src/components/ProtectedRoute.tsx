@@ -1,8 +1,34 @@
+import { useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
 import Roles from "./roles";
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated, loading, error, isRole } = useAuth();
+  const [path, setPath] = useState<string>("/");
+
+  useEffect(() => {
+    setPath(window.location.pathname);
+  }, []);
+
+  const userPath = ["/dashboard", "/profile", "/courses", "/creater-studio"]
+  const createrPath = ["/creater-studio"]
+
+  console.log(isRole);
+
+  const checkRole = () => {
+    if (isRole === "user") {
+      if (createrPath.includes(path)) {
+        return false
+      }
+    } else {
+      if (userPath.includes(path)) {
+        return false
+      }
+    }
+    return true
+  }
+
+  const correctPath = checkRole();
 
   if (error) {
     return (
@@ -26,7 +52,12 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
           (isAuthenticated ? (!isRole ? (
             <Roles />
           ) : (
-            <div>{children}</div>
+            correctPath ? (
+              <div>{children}</div>
+            ) : (<div>
+                  Looks like you are not authorized to access this page
+                </div>
+            )
           )
           ) : (
             <div>

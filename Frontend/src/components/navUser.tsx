@@ -60,8 +60,8 @@ export default function NavUser() {
                         </DropdownMenu>
                     ) : (
                         loading ? (
-                            <div className="flex justify-center items-center">
-                                <Loader2 className="text-white animate-spin lg:w-9 lg:h-9 w-8 h-8" />
+                            <div className="flex justify-center items-center text-zinc-600">
+                                <Loader2 className="animate-spin lg:w-9 lg:h-9 w-8 h-8" />
                             </div>
                         ) : (
                             <button

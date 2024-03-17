@@ -12,7 +12,7 @@ export default function useAuth() {
     const [user, setUser] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
-    const [isRole, setIsRole] = useState(false);
+    const [isRole, setIsRole] = useState(null);
 
     const { search } = useLocation();
 
@@ -47,8 +47,8 @@ export default function useAuth() {
 
             const role = await getRole(data.id);
 
-            if (role == 'user' || role == 'creater') setIsRole(true);
-            else setIsRole(false);
+            if (role === 'user' || role === 'creater') setIsRole(role);
+            else setIsRole(null);
 
             // check whether the the res.json is an error message
             if (data.message) {
@@ -80,7 +80,6 @@ export default function useAuth() {
             await axios.post("/db/createUser", {
                 id: user.id,
                 username: user.login,
-                email: user.email,
             });
 
             setIsAuthenticated(true);

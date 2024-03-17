@@ -3,7 +3,7 @@ import db from "../db";
 import { users } from "../db/schema";
 
 export const createUser = async (req: any, res: any) => {
-  const { id, username, email } = req.body;
+  const { id, username } = req.body;
 
   if (!id || !username) return res.status(400).json("Invalid input");
 
@@ -16,7 +16,6 @@ export const createUser = async (req: any, res: any) => {
       const newUser = await db.insert(users).values({
         id: id,
         name: username,
-        email: email,
         role: "not assigned",
       });
 

@@ -1,4 +1,4 @@
-import { Search } from "lucide-react";
+import { GraduationCap, Search } from "lucide-react";
 import NavUser from "./Navuser";
 import {
   Popover,
@@ -8,7 +8,8 @@ import {
 
 export default function TopBar() {
   return (
-    <div className="text-white flex justify-start items-center py-2">
+    <div className="text-white flex justify-start items-center py-2 gap-2">
+      <GraduationCap className="sm:hidden h-10 w-16"/>
       <Popover>
         <div className="w-full flex gap-2">
           <input
