@@ -1,7 +1,6 @@
-import { useState } from "react";
-import { handleUpload } from "src/querries/db";
-import { useMutation } from "@tanstack/react-query";
-import axios from "src/api/axios";
+import { useRef, useState } from "react";
+import { getUrl, handleUpload, setUrl } from "src/querries/db";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 interface UploadProps {
     img: File | null;
@@ -10,16 +9,27 @@ interface UploadProps {
 }
 
 export default function Upload() {
+    const formRef = useRef<HTMLFormElement | null>(null);
+    const queryClient = useQueryClient();
+
     const [img, setImg] = useState<File | null>(null);
     const [video, setVideo] = useState<File | null>(null);
     const [type, setType] = useState<string>("");
-    const [videoUrl, setVideoUrl] = useState<string>("");
-    const [imgUrl, setImgUrl] = useState<string>("");
+
+    const { data: getVideoSrc, isLoading } = useQuery({
+        queryKey: ['video'],
+        queryFn: () => getUrl(117096680),
+    })
+
+    const setUrlMutation = useMutation({mutationFn: setUrl,
+        onSuccess: () => {queryClient.invalidateQueries({ queryKey: ['video'] })}
+    })
 
     const uploadMutation = useMutation({
         mutationFn: handleUpload,
         onSuccess: (data) => {
-            (data?.type == "image" ? setImgUrl(data?.secure_url) : setVideoUrl(data?.secure_url));
+            setUrlMutation.mutate({url: data?.secure_url, id: 117096680});
+
         },
         onError: (error) => {
             console.log("Error uploading file", error);
@@ -30,11 +40,12 @@ export default function Upload() {
         e.preventDefault();
         const uploadData: UploadProps = { img, video, type };
         uploadMutation.mutate(uploadData);
+        formRef.current?.reset();
     };
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
+            <form ref={formRef} onSubmit={handleSubmit}>
                 <div className="flex flex-col gap-5 items-center pt-10">
                     <div>
                         <label htmlFor="image" className="bg-blue-500 w-24 text-white p-2 rounded-md m-2">Upload Image</label>
@@ -59,9 +70,16 @@ export default function Upload() {
             </form>
             {uploadMutation.isPending && <div>Uploading...</div>}
             <div className="flex justify-center">
-                <video width="480" height="320" controls>
-                    <source src={videoUrl} type="video/mp4" />
-                </video>
+                {
+                    isLoading ? <div>Loading...</div> : (
+                        getVideoSrc?.data != "error" &&
+                        getVideoSrc?.data.map((item: {url: string, id: number}) => {
+                            return (
+                                <video key={item.id} src={item.url} controls width="400" height="300" />
+                            )
+                        })
+                    )
+                }
             </div>
         </div>
     );
