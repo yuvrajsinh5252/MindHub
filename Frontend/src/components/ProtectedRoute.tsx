@@ -11,14 +11,12 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   const userPath = ["/dashboard", "/profile", "/courses", "/creater-studio"]
-  const createrPath = ["/creater-studio"]
-
-  console.log(isRole);
+  const createrPath = ["/creator-studio"]
 
   const checkRole = () => {
     if (isRole === "user") {
       if (createrPath.includes(path)) {
-        return false
+        return true // temperoraily disabled for testing
       }
     } else {
       if (userPath.includes(path)) {

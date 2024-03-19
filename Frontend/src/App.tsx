@@ -7,7 +7,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import MyCourses from "./pages/user/Mycourses";
 import Profile from "./pages/profile";
 import { Toaster } from "./components/ui/toaster";
-import CreaterStudio from "./pages/creater/creater-studio";
+import CreaterStudio from "./pages/creator/creator-studio";
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
         <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>}/>
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path="/courses" element={<ProtectedRoute><MyCourses /></ProtectedRoute>} />
-        <Route path="/creater-studio" element={<ProtectedRoute><CreaterStudio /></ProtectedRoute>} />
+        <Route path="/creator-studio" element={<ProtectedRoute><CreaterStudio /></ProtectedRoute>} />
         <Route path="*">"404 Not Found"</Route>
       </Routes>
     </BrowserRouter>
