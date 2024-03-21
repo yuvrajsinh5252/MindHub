@@ -21,11 +21,11 @@ export default function Roles() {
                     <label className="font-semibold text-xl" htmlFor="user">User</label>
                 </div>
                 <div className="flex gap-3 w-22">
-                    <input type="radio" id="creater" name="role" value="creater"
+                    <input type="radio" id="creator" name="role" value="creator"
                         className="w-4 h-4 rounded-full appearance-none border border-gray-300 bg-white checked:bg-blue-500 checked:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:ring-offset-0"
                         onChange={(e) => setRole(e.target.value)}
                     />
-                    <label className="font-semibold text-xl" htmlFor="creater">Creater</label>
+                    <label className="font-semibold text-xl" htmlFor="creator">Creater</label>
                 </div>
 
                 <button
@@ -33,7 +33,7 @@ export default function Roles() {
                         if (role) {
                             await axios.post("/db/setRole", {
                                 id: user?.data?.id,
-                                role: "user",
+                                role: role,
                             });
 
                             window.location.assign("/dashboard");

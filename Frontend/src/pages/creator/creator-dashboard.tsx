@@ -1,4 +1,3 @@
-import Upload from "src/components/creator/Upload";
 import Sidebar from "src/components/creator/sidebar";
 import TopBar from "src/components/Topbar";
 
@@ -11,7 +10,7 @@ export default function CreatorDashboard() {
 
                 {/* page content starts */}
                 <div className="bg-white no-scrollbar dark:bg-zinc-900 dark:text-white rounded-xl divide-y-2 p-2 h-[calc(100%-4rem)] overflow-y-scroll scroll-smooth">
-                    <Upload />
+                    Creator - dashboard
                 </div>
                 {/* page content ends */}
             </div>

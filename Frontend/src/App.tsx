@@ -8,6 +8,7 @@ import MyCourses from "./pages/user/Mycourses";
 import Profile from "./pages/profile";
 import { Toaster } from "./components/ui/toaster";
 import CreaterStudio from "./pages/creator/creator-studio";
+import CreatorDashboard from "./pages/creator/creator-dashboard";
 
 function App() {
   return (
@@ -17,10 +18,17 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>}/>
+
+        {/* User Routes */}
+        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path="/courses" element={<ProtectedRoute><MyCourses /></ProtectedRoute>} />
+
+        {/* Creator Routes */}
         <Route path="/creator-studio" element={<ProtectedRoute><CreaterStudio /></ProtectedRoute>} />
+        <Route path="/creator-dashboard" element={<ProtectedRoute><CreatorDashboard /></ProtectedRoute>} />
+
+        {/* 404 Not Found */}
         <Route path="*">"404 Not Found"</Route>
       </Routes>
     </BrowserRouter>

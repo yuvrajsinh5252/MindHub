@@ -16,11 +16,11 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const checkRole = () => {
     if (isRole === "user") {
       if (createrPath.includes(path)) {
-        return true // temperoraily disabled for testing
+        return false
       }
     } else {
       if (userPath.includes(path)) {
-        return false
+        return true // disabled for testing
       }
     }
     return true
@@ -47,7 +47,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
             Authenticating please wait a moment...
           </div>
         ) :
-          (isAuthenticated ? (!isRole ? (
+          (isAuthenticated ? (isRole ? (
             <Roles />
           ) : (
             correctPath ? (

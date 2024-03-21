@@ -10,10 +10,9 @@ export default function Dashboard() {
         queryFn: getUserData,
     });
 
-    const id = user?.data?.id;
     const { data: role, isLoading: load } = useQuery({
-        queryKey: ["role", id],
-        queryFn: () => getRole(id),
+        queryKey: ["role"],
+        queryFn:  getRole,
     });
 
     if (error) return <div>User not authorized</div>;
