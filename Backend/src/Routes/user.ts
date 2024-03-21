@@ -16,7 +16,6 @@ export const createUser = async (req: any, res: any) => {
       const newUser = await db.insert(users).values({
         id: id,
         name: username,
-        role: "not assigned",
       });
 
       console.log("user created");
@@ -24,6 +23,7 @@ export const createUser = async (req: any, res: any) => {
     }
   } catch (error) {
     console.log(error);
+    res.status(500).json({ error: "Something went wrong while creating user" });
   }
 };
 
@@ -33,11 +33,11 @@ export const getRole = async (req: any, res: any) => {
   try {
     const user = await db.select().from(users).where(eq(users.id, id));
 
-    if (user.length > 0) {
-      res.json(user[0].role);
-    }
+    if (user.length > 0) res.json(user[0].role);
+    else res.json("User not found");
   } catch (error) {
     console.log(error);
+    res.status(500).json({ error: "Something went wrong while getting role" });
   }
 }
 
@@ -47,49 +47,13 @@ export const setRole = async (req: any, res: any) => {
   try {
     const user = await db.update(users).set({ role: role }).where(eq(users.id, id));
 
-    if (user) {
-      res.json("User role updated");
-    } else {
-      res.json("User not found");
-    }
+    if (role === "creator") await db.insert(creator).values({ id: id });
+    else await db.delete(creator).where(eq(creator.id, id));
+
+    if (user) res.json("User role updated");
+    else res.json("User not found");
 
     console.log("user role updated");
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-export const setUrl = async (req: any, res: any) => {
-  const { id, url } = req.body;
-
-  try {
-    const creatorData = await db.select().from(creator).where(eq(creator.creatorId, id));
-    if (creatorData.includes(url)) return res.json("Url already exists for this creator");
-
-    const data = await db.insert(creator).values({
-      creatorId: id,
-      url: url,
-    });
-
-    if (data) res.json("Creator url set");
-    else res.json("Error setting creator url");
-
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-export const getUrl = async (req: any, res: any) => {
-  const { id } = req.body;
-
-  try {
-    const creatorData = await db.select().from(creator).where(eq(creator.creatorId, id));
-
-    if (creatorData.length > 0) {
-      res.json(creatorData);
-    } else {
-      res.json("error");
-    }
   } catch (error) {
     console.log(error);
   }

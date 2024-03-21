@@ -1,39 +1,11 @@
 {
-  "id": "4346567e-c67f-4188-92b4-3056300ae873",
+  "id": "fb18a998-f2af-4e7b-9f96-82161908fe54",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
   "tables": {
-    "creator": {
-      "name": "creator",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "creatorId": {
-          "name": "creatorId",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "url": {
-          "name": "url",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
-    "users": {
-      "name": "users",
+    "file": {
+      "name": "file",
       "schema": "",
       "columns": {
         "id": {
@@ -46,18 +18,121 @@
           "name": "name",
           "type": "text",
           "primaryKey": false,
+          "notNull": false
+        },
+        "uploadStatus": {
+          "name": "uploadStatus",
+          "type": "uploadStatus",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'PENDING'"
+        },
+        "type": {
+          "name": "type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "url": {
+          "name": "url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "size": {
+          "name": "size",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "creatorId": {
+          "name": "creatorId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "file_creatorId_creator_id_fk": {
+          "name": "file_creatorId_creator_id_fk",
+          "tableFrom": "file",
+          "tableTo": "creator",
+          "columnsFrom": [
+            "creatorId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "creator": {
+      "name": "creator",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "creator_id_unique": {
+          "name": "creator_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "id"
+          ]
+        }
+      }
+    },
+    "users": {
+      "name": "users",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar",
+          "primaryKey": false,
           "notNull": true
         },
         "role": {
           "name": "role",
-          "type": "text",
+          "type": "varchar",
           "primaryKey": false,
-          "notNull": true,
-          "default": "'not assigned'"
+          "notNull": false
         },
         "created_at": {
           "name": "created_at",
-          "type": "text",
+          "type": "varchar",
           "primaryKey": false,
           "notNull": false,
           "default": "now()"
@@ -67,6 +142,13 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
+        "users_id_unique": {
+          "name": "users_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "id"
+          ]
+        },
         "users_name_unique": {
           "name": "users_name_unique",
           "nullsNotDistinct": false,
@@ -77,7 +159,17 @@
       }
     }
   },
-  "enums": {},
+  "enums": {
+    "uploadStatus": {
+      "name": "uploadStatus",
+      "values": {
+        "PENDING": "PENDING",
+        "PROCESSING": "PROCESSING",
+        "FAILED": "FAILED",
+        "SUCCESS": "SUCCESS"
+      }
+    }
+  },
   "schemas": {},
   "_meta": {
     "columns": {},
