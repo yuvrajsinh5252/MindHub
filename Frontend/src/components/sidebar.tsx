@@ -1,12 +1,15 @@
-import useAuth from "src/hooks/useAuth";
 import { Book, GraduationCap, LayoutDashboard, LogOut, Mails, Radio, Settings } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useNavigate } from "@tanstack/react-router";
 
 export default function Sidebar() {
     const [path, setPath] = useState<string>("/dashboard");
-    const { handleLogout } = useAuth();
     const navigate = useNavigate();
+
+    const handleLogout = () => {
+        localStorage.removeItem("access_token");
+        navigate({ to: "/" });
+    }
 
     useEffect(() => {
         setPath(window.location.pathname);
@@ -20,7 +23,7 @@ export default function Sidebar() {
             </div>
             <div className="flex flex-col gap-5 items-start h-full px-2 pt-10 pb-10">
                 <button
-                    onClick={() => navigate("/dashboard")}
+                    onClick={() => navigate({ to: "/dashboard" })}
                     className={"flex gap-3 items-start bg-black rounded-lg p-2 w-full min-w-32" +
                         (path === "/dashboard" ? " bg-white text-black" : "")
                     }>
@@ -28,7 +31,7 @@ export default function Sidebar() {
                     Dashboard
                 </button>
                 <button
-                    onClick={() => navigate("/Browsecourses")}
+                    onClick={() => navigate({ to: "/creator-dashboard" })}
                     className={"flex gap-3 items-start bg-black rounded-lg p-2 w-full min-w-32" +
                         (path === "/Browsecourses" ? " bg-white text-black" : "")
                     }>
@@ -36,7 +39,7 @@ export default function Sidebar() {
                     Browse Courses
                 </button>
                 <button
-                    onClick={() => navigate("/courses")}
+                    onClick={() => navigate({ to: "/courses" })}
                     className={"flex gap-3 items-start bg-black rounded-lg p-2 w-full min-w-32" +
                         (path === "/courses" ? " bg-white text-black" : "")
                     }>
@@ -44,7 +47,7 @@ export default function Sidebar() {
                     My Courses
                 </button>
                 <button
-                    onClick={() => navigate("/Live")}
+                    onClick={() => navigate({ to: "/Live" })}
                     className={"flex gap-3 items-start bg-black rounded-lg p-2 w-full min-w-32" +
                         (path === "/Live" ? " bg-white text-black" : "")
                     }>
@@ -52,15 +55,15 @@ export default function Sidebar() {
                     Live
                 </button>
                 <button
-                    onClick={() => navigate("/Messages")}
+                    onClick={() => navigate({ to: "/Messages" })}
                     className={"flex gap-3 items-start bg-black rounded-lg p-2 w-full min-w-32" +
                         (path === "/Messages" ? " bg-white text-black" : "")
-                }>
+                    }>
                     <Mails />
                     Messages
                 </button>
                 <button
-                    onClick={() => navigate("/settings")}
+                    onClick={() => navigate({ to: "/settings" })}
                     className={"flex gap-3 items-start bg-black rounded-lg p-2 w-full min-w-32" +
                         (path === "/settings" ? " bg-white text-black" : "")
                     }>

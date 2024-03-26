@@ -1,4 +1,3 @@
-import useAuth from "../hooks/useAuth";
 import { Loader2 } from "lucide-react";
 import {
     DropdownMenu,
@@ -8,8 +7,9 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger
 } from "./ui/dropdown-menu";
-import { ModeToggle } from "./Theme-toggle";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@tanstack/react-router";
+import { ModeToggle } from "./theme/mode-toggle";
+import useAuth from "@/hook/useAuth";
 
 export default function NavUser() {
     const {
@@ -42,13 +42,13 @@ export default function NavUser() {
                                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem
-                                    onClick={() => navigation("/profile")}
+                                    onClick={() => navigation({ to: "/login" })}
                                 >Profile</DropdownMenuItem>
                                 <DropdownMenuItem
-                                    onClick={() => navigation("/billing")}
+                                    onClick={() => navigation({ to: "/login" })}
                                 >Billing</DropdownMenuItem>
                                 <DropdownMenuItem
-                                    onClick={() => navigation("/courses")}
+                                    onClick={() => navigation({ to: "/login" })}
                                 >courses</DropdownMenuItem>
                                 <DropdownMenuItem>Subscription</DropdownMenuItem>
                                 <DropdownMenuItem
@@ -66,7 +66,8 @@ export default function NavUser() {
                         ) : (
                             <button
                                 className='text-center bg-black text-white rounded-md px-2 hover:bg-gray-600 transition-all duration-300 ease-in-out py-1'
-                                onClick={() => navigation("/login")}>
+                                onClick={() => navigation({ to: "/login" })}
+                            >
                                 Login
                             </button>
                         )

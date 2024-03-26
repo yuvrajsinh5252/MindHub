@@ -1,7 +1,7 @@
-import axios from "src/api/axios";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getUserData } from "../querries/db";
+import axios from "@/api/axios";
 
 export default function Roles() {
     const [role, setRole] = useState("");

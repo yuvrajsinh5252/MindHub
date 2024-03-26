@@ -1,15 +1,10 @@
+import { Popover, PopoverContent, PopoverTrigger } from "@radix-ui/react-popover";
 import { GraduationCap, Search } from "lucide-react";
-import NavUser from "./Navuser";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "src/components/ui/popover"
 
 export default function TopBar() {
   return (
     <div className="text-white flex justify-start items-center py-2 gap-2">
-      <GraduationCap className="sm:hidden h-10 w-16"/>
+      <GraduationCap className="sm:hidden h-10 w-16" />
       <Popover>
         <div className="w-full flex gap-2">
           <input
@@ -35,7 +30,7 @@ export default function TopBar() {
       </Popover>
 
       <div className="text-black px-2 w-48">
-        <NavUser />
+        {/* <NavUser /> */}
       </div>
     </div>
   );

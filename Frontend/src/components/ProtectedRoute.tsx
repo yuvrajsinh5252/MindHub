@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import useAuth from "../hooks/useAuth";
 import Roles from "./roles";
+import useAuth from "@/hook/useAuth";
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated, loading, error, isRole } = useAuth();
@@ -53,8 +53,8 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
             correctPath ? (
               <div>{children}</div>
             ) : (<div>
-                  Looks like you are not authorized to access this page
-                </div>
+              Looks like you are not authorized to access this page
+            </div>
             )
           )
           ) : (

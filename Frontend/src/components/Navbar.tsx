@@ -1,11 +1,11 @@
+import NavUser from "./navUser";
 import Hamburger from "./Hamburger";
-import { useLocation } from "react-router-dom";
-import NavUser from "./Navuser";
+
 
 const noNavbarRoute = ["/"];
 
 export default function Navbar() {
-    const { pathname } = useLocation();
+    const pathname = window.location.pathname;
 
     if (!noNavbarRoute.some((route) => route === pathname)) return null;
 
