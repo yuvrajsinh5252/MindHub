@@ -1,5 +1,6 @@
 import { Popover, PopoverContent, PopoverTrigger } from "@radix-ui/react-popover";
 import { GraduationCap, Search } from "lucide-react";
+import NavUser from "./navUser";
 
 export default function TopBar() {
   return (
@@ -30,7 +31,7 @@ export default function TopBar() {
       </Popover>
 
       <div className="text-black px-2 w-48">
-        {/* <NavUser /> */}
+        <NavUser />
       </div>
     </div>
   );

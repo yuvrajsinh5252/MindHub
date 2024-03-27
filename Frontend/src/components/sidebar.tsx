@@ -1,15 +1,12 @@
 import { Book, GraduationCap, LayoutDashboard, LogOut, Mails, Radio, Settings } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
+import useAuth from "@/hook/useAuth";
 
 export default function Sidebar() {
     const [path, setPath] = useState<string>("/dashboard");
     const navigate = useNavigate();
-
-    const handleLogout = () => {
-        localStorage.removeItem("access_token");
-        navigate({ to: "/" });
-    }
+    const { handleLogout } = useAuth();
 
     useEffect(() => {
         setPath(window.location.pathname);

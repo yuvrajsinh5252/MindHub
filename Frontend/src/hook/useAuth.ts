@@ -13,7 +13,6 @@ export default function useAuth() {
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [isRole, setIsRole] = useState(null);
 
   const search = window.location.search;
 
@@ -29,7 +28,6 @@ export default function useAuth() {
         Accept: "application/json",
       },
     });
-    console.log(data);
 
     if (data && data.access_token) {
       localStorage.setItem("access_token", data.access_token);
@@ -51,11 +49,6 @@ export default function useAuth() {
         }
       );
 
-      const role = await getRole(data.id);
-
-      if (role === "user" || role === "creater") setIsRole(role);
-      else setIsRole(null);
-
       // check whether the the res.json is an error message
       if (data.message) {
         setIsAuthenticated(false);
@@ -70,12 +63,7 @@ export default function useAuth() {
       }
       return data;
     }
-  }, [setIsAuthenticated, setLoading, setUser, setIsRole]);
-
-  const getRole = async (id: { id: number }) => {
-    const { data } = await axios.post("/db/getRole", { id: id });
-    return data;
-  };
+  }, [setIsAuthenticated, setLoading, setUser]);
 
   const handleCallback = useCallback(
     async (code: string) => {
@@ -116,6 +104,5 @@ export default function useAuth() {
     user,
     loading,
     error,
-    isRole,
   };
 }
