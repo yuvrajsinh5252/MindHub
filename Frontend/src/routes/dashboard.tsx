@@ -1,8 +1,7 @@
 import TopBar from "@/components/Topbar";
 import Sidebar from "@/components/sidebar";
 import { Skeleton } from "@/components/ui/skeleton";
-import { getUserData } from "@/querries/db";
-import { useQuery } from "@tanstack/react-query";
+import { useGithubUser } from "@/querries/db";
 import { createFileRoute } from "@tanstack/react-router";
 import ProtectedRoute from "@/components/ProtectedRoute";
 
@@ -11,10 +10,7 @@ export const Route = createFileRoute("/dashboard")({
 })
 
 function Dashboard() {
-  const { data: user, isLoading } = useQuery({
-    queryKey: ["user"],
-    queryFn: getUserData,
-  });
+  const { data: user, isLoading } = useGithubUser();
 
   return (
     <ProtectedRoute>

@@ -49,13 +49,6 @@ export default function useAuth() {
         }
       );
 
-      // check whether the the res.json is an error message
-      if (data.message) {
-        setIsAuthenticated(false);
-        setLoading(false);
-        return null;
-      }
-
       if (data) {
         setIsAuthenticated(true);
         setLoading(false);

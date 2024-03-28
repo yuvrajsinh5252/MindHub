@@ -6,6 +6,7 @@ const CLIENT_SECRET = process.env.CLIENT_SECRET;
 // getting the user from the access token
 export async function githubAuth(headers: any) {
   const Authorization = headers.get("Authorization");
+
   try {
     return await fetch("https://api.github.com/user", {
       method: "GET",
@@ -36,7 +37,6 @@ export async function getAccessToken(query: any) {
         Accept: "application/json",
       },
     }).then((response: any) => {
-      console.log(response);
       return response.json();
     });
   } catch (error) {

@@ -6,6 +6,7 @@ import "./index.css"
 import { routeTree } from './routeTree.gen'
 import { ThemeProvider } from './components/theme/theme-provider.tsx'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { StrictMode } from 'react'
 
 // Create a new router instance
 const router = createRouter({ routeTree })
@@ -24,11 +25,13 @@ const rootElement = document.getElementById('root')!
 if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement)
   root.render(
+    // <StrictMode>
     <ThemeProvider defaultTheme="system">
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
       </QueryClientProvider>
     </ThemeProvider>
+    // </StrictMode>
   )
 }
 

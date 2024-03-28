@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { Button, buttonVariants } from "../components/ui/button";
 import { handleGitHubLogin } from '@/hook/useAuth';
+import { GraduationCap } from 'lucide-react';
 
 const Login = () => {
   return (
@@ -8,9 +9,7 @@ const Login = () => {
       <div className="border-2 flex flex-col gap-6 rounded-lg w-[400px] max-sm:w-72">
         <div className="flex flex-col justify-center items-center">
           <div className="flex justify-center p-2">
-            <img src="/Assets/logo.png" alt="logo"
-              className="w-32 h-32"
-            />
+            <GraduationCap size={80} />
           </div>
           <h1 className="font-bold text-xl">MindHub</h1>
         </div>
@@ -24,7 +23,7 @@ const Login = () => {
           >
             <img
               className="w-11 h-9 pr-1"
-              src="../assets/github_logo.png" alt="github" />
+              src="/github_logo.png" alt="github" />
             <p className="text-lg">Login with Github</p>
           </Button>
         </div>
