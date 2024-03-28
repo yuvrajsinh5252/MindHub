@@ -3,13 +3,24 @@
   "version": "1.0.50",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts"
+    "dev": "bun run --watch src/index.ts",
+    "generate": "drizzle-kit generate:pg --schema ./src/db/schema.ts --out=./src/db/migrations",
+    "migrate": "bun run ./src/db/migrate.ts",
+    "studio": "drizzle-kit studio"
   },
+  "type": "module",
   "dependencies": {
-    "elysia": "latest"
+    "@elysiajs/cors": "^1.0.2",
+    "@neondatabase/serverless": "^0.9.0",
+    "drizzle-orm": "^0.30.5",
+    "elysia": "latest",
+    "pg": "^8.11.3",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
-    "bun-types": "latest"
+    "bun-types": "latest",
+    "drizzle-kit": "^0.20.14",
+    "typescript": "^5.4.3"
   },
-  "module": "src/index.js"
+  "module": "src/index.ts"
 }
