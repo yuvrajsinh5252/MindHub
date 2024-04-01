@@ -1,7 +1,7 @@
 import cors from "@elysiajs/cors";
 import { Elysia } from "elysia";
 import { getAccessToken, githubAuth } from "./routes/auth";
-import { createUser } from "./routes/neonDB";
+import { createUser, getRole, setRole, uploadVideo } from "./routes/neonDB";
 
 const app = new Elysia()
   .use(cors())
@@ -14,20 +14,9 @@ const app = new Elysia()
   .group("/db", (group) => {
     return group
       .post("/createUser", ({ set, request }) => createUser(set, request))
-      .post("/uploadVideo", async ({ body }) => {
-        console.log(body);
-
-        let cloudName: string = "dp6puihqw";
-        let resourceType: string = "image";
-        let url: string = `https://api.cloudinary.com/v1_1/${cloudName}/${resourceType}/upload`;
-
-        const response = await fetch(url, {
-          method: "POST",
-          body: JSON.stringify(body),
-        });
-        response.json();
-        console.log(response);
-      });
+      .post("/setRole", ({ body }) => setRole(body))
+      .post("/getRole", ({ body }) => getRole(body))
+      .post("/uploadVideo", ({ body }) => uploadVideo(body));
   })
 
   .listen(3000);

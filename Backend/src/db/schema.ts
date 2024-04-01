@@ -19,7 +19,6 @@ export const uploadStatusEnum = pgEnum("uploadStatus", [
 export const users = pgTable("users", {
   id: varchar("id").unique().primaryKey(),
   name: varchar("name").unique().notNull(),
-  role: varchar("role"),
   createdAt: varchar("created_at").default(sql`now()`),
 });
 
@@ -27,8 +26,13 @@ export const creator = pgTable("creator", {
   id: integer("id").unique().primaryKey(),
 });
 
+export const viewer = pgTable("viewer", {
+  id: integer("id").unique().primaryKey(),
+});
+
 export const File = pgTable("file", {
   id: serial("id").primaryKey(),
+  userId: integer("userId").references(() => creator.id),
   name: text("name"),
 
   uploadStatus: uploadStatusEnum("uploadStatus").default("PENDING"),
