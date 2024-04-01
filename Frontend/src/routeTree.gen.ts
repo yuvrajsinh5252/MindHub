@@ -11,36 +11,42 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as OnboardingImport } from './routes/onboarding'
 import { Route as LoginImport } from './routes/login'
-import { Route as DashboardImport } from './routes/dashboard'
-import { Route as CreatorStudioImport } from './routes/creator-studio'
-import { Route as CoursesImport } from './routes/courses'
 import { Route as IndexImport } from './routes/index'
+import { Route as StudioIndexImport } from './routes/studio/index'
+import { Route as UserDashboardImport } from './routes/user/dashboard'
+import { Route as StudioCreatorStudioImport } from './routes/studio/creator-studio'
 
 // Create/Update Routes
+
+const OnboardingRoute = OnboardingImport.update({
+  path: '/onboarding',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const LoginRoute = LoginImport.update({
   path: '/login',
   getParentRoute: () => rootRoute,
 } as any)
 
-const DashboardRoute = DashboardImport.update({
-  path: '/dashboard',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const CreatorStudioRoute = CreatorStudioImport.update({
-  path: '/creator-studio',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const CoursesRoute = CoursesImport.update({
-  path: '/courses',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const IndexRoute = IndexImport.update({
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const StudioIndexRoute = StudioIndexImport.update({
+  path: '/studio/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const UserDashboardRoute = UserDashboardImport.update({
+  path: '/user/dashboard',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const StudioCreatorStudioRoute = StudioCreatorStudioImport.update({
+  path: '/studio/creator-studio',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -52,20 +58,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/courses': {
-      preLoaderRoute: typeof CoursesImport
-      parentRoute: typeof rootRoute
-    }
-    '/creator-studio': {
-      preLoaderRoute: typeof CreatorStudioImport
-      parentRoute: typeof rootRoute
-    }
-    '/dashboard': {
-      preLoaderRoute: typeof DashboardImport
-      parentRoute: typeof rootRoute
-    }
     '/login': {
       preLoaderRoute: typeof LoginImport
+      parentRoute: typeof rootRoute
+    }
+    '/onboarding': {
+      preLoaderRoute: typeof OnboardingImport
+      parentRoute: typeof rootRoute
+    }
+    '/studio/creator-studio': {
+      preLoaderRoute: typeof StudioCreatorStudioImport
+      parentRoute: typeof rootRoute
+    }
+    '/user/dashboard': {
+      preLoaderRoute: typeof UserDashboardImport
+      parentRoute: typeof rootRoute
+    }
+    '/studio/': {
+      preLoaderRoute: typeof StudioIndexImport
       parentRoute: typeof rootRoute
     }
   }
@@ -75,10 +85,11 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren([
   IndexRoute,
-  CoursesRoute,
-  CreatorStudioRoute,
-  DashboardRoute,
   LoginRoute,
+  OnboardingRoute,
+  StudioCreatorStudioRoute,
+  UserDashboardRoute,
+  StudioIndexRoute,
 ])
 
 /* prettier-ignore-end */

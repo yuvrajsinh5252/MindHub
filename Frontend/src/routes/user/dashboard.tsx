@@ -1,11 +1,11 @@
+import { createFileRoute } from '@tanstack/react-router'
 import TopBar from "@/components/Topbar";
 import Sidebar from "@/components/sidebar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGithubUser } from "@/querries/db";
-import { createFileRoute } from "@tanstack/react-router";
 import ProtectedRoute from "@/components/ProtectedRoute";
 
-export const Route = createFileRoute("/dashboard")({
+export const Route = createFileRoute("/user/dashboard")({
   component: Dashboard,
 })
 

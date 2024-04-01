@@ -5,10 +5,9 @@ import { useRef, useState } from 'react';
 
 interface UploadProps {
   formData: FormData;
-  type: string;
 }
 
-export const Route = createFileRoute('/creator-studio')({
+export const Route = createFileRoute('/studio/creator-studio')({
   component: studio,
 })
 
@@ -35,7 +34,7 @@ function studio() {
     formData.append("file", type === "image" ? img! : video!);
     formData.append("upload_preset", type === "image" ? "image_preset" : "videos_preset");
 
-    const uploadData: UploadProps = { formData, type };
+    const uploadData: UploadProps = { formData };
     uploadMutation.mutate(uploadData);
     formRef.current?.reset();
   };
@@ -43,6 +42,17 @@ function studio() {
 
   return (
     <div>
+      {
+        uploadMutation.isPending ? (
+          <div className="bg-blue-500 text-white p-2 rounded-md m-2">Uploading...</div>
+        ) : uploadMutation.isError ? (
+          <div className="bg-red-500 text-white p-2 rounded-md m-2">Error uploading file</div>
+        ) : uploadMutation.isSuccess ? (
+          <div className="bg-green-500 text-white p-2 rounded-md m-2">File uploaded successfully</div>
+        ) : (
+          <div className="bg-blue-500 text-white p-2 rounded-md m-2">Upload an image or video</div>
+        )
+      }
       <form ref={formRef} onSubmit={handleSubmit} encType="multipart/form-data">
         <div className="flex flex-col gap-5 items-center pt-10">
           <div>
