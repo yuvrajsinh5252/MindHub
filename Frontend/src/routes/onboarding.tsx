@@ -1,6 +1,7 @@
 import Stepper from '@/components/Stepper';
 import Roles from '@/components/roles';
-import { useGithubUser, useUserRole } from '@/querries/db';
+import useAuth from '@/hook/useAuth';
+import { useUserRole } from '@/querries/db';
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 
@@ -9,13 +10,15 @@ export const Route = createFileRoute('/onboarding')({
 })
 
 function OnBoarding() {
-  const { data: user, isLoading: userLoading, error: userError } = useGithubUser();
-  const { data: role, isLoading: roleLoading, error: roleError } = useUserRole({ variables: { id: user?.data.id }, enabled: !!user?.data.id });
+  const { user, loading: userLoading, error: userError } = useAuth();
+  const { data: role, isLoading: roleLoading, error: roleError } = useUserRole({ variables: { id: user?.id }, enabled: !!user?.id });
   const navigate = useNavigate();
 
+  // if (!userLoading && !user?.data) console.log(user?.data)
+
   useEffect(() => {
-    if (role?.data == "viewer") navigate({ to: '/user/dashboard' })
-    else if (role?.data === "creator") navigate({ to: '/studio/creator-studio' })
+    if (role?.data == "viewer") navigate({ to: '/dashboard' })
+    else if (role?.data === "creator") navigate({ to: '/creator-studio' })
   })
 
   if (roleError || userError) {
@@ -23,7 +26,7 @@ function OnBoarding() {
       <div className='h-screen flex justify-center items-center flex-col dark:bg-zinc-800 dark:text-white'>
         <h1>Something went wrong</h1>
         {roleError && <p>{roleError.message}</p>}
-        {userError && <p>{userError.message}</p>}
+        {userError && <p>{userError}</p>}
       </div>
     )
   }

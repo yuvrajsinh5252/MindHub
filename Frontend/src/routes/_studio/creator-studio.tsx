@@ -4,7 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router'
 import { useRef, useState } from 'react';
 
-export const Route = createFileRoute('/studio/creator-studio')({
+export const Route = createFileRoute('/_studio/creator-studio')({
   component: studio,
 })
 

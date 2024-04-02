@@ -9,8 +9,8 @@ interface file {
   bytes: number;
 }
 
-export const createUser = async (set: any, request: Request) => {
-  const { id, username } = await request.json();
+export const createUser = async (set: any, body: any) => {
+  const { id, username } = body;
 
   if (!id || !username) {
     set.status(400);
@@ -26,7 +26,7 @@ export const createUser = async (set: any, request: Request) => {
         id: id,
         name: username,
       });
-      console.log("user created");
+
       return newUser.rows[0];
     }
   } catch (error) {

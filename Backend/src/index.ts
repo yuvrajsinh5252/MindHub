@@ -13,7 +13,7 @@ const app = new Elysia()
 
   .group("/db", (group) => {
     return group
-      .post("/createUser", ({ set, request }) => createUser(set, request))
+      .post("/createUser", ({ set, body }) => createUser(set, body))
       .post("/setRole", ({ body }) => setRole(body))
       .post("/getRole", ({ body }) => getRole(body))
       .post("/uploadVideo", ({ set, body }) => uploadVideo(set, body));

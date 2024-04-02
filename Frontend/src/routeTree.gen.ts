@@ -13,10 +13,14 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as OnboardingImport } from './routes/onboarding'
 import { Route as LoginImport } from './routes/login'
+import { Route as UserImport } from './routes/_user'
+import { Route as StudioImport } from './routes/_studio'
 import { Route as IndexImport } from './routes/index'
-import { Route as StudioIndexImport } from './routes/studio/index'
-import { Route as UserDashboardImport } from './routes/user/dashboard'
-import { Route as StudioCreatorStudioImport } from './routes/studio/creator-studio'
+import { Route as StudioIndexImport } from './routes/_studio/index'
+import { Route as UserDashboardImport } from './routes/_user/dashboard'
+import { Route as UserMycoursesImport } from './routes/_user/Mycourses'
+import { Route as UserBrowsecoursesImport } from './routes/_user/Browsecourses'
+import { Route as StudioCreatorStudioImport } from './routes/_studio/creator-studio'
 
 // Create/Update Routes
 
@@ -30,24 +34,44 @@ const LoginRoute = LoginImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const UserRoute = UserImport.update({
+  id: '/_user',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const StudioRoute = StudioImport.update({
+  id: '/_studio',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const IndexRoute = IndexImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any)
 
 const StudioIndexRoute = StudioIndexImport.update({
-  path: '/studio/',
-  getParentRoute: () => rootRoute,
+  path: '/',
+  getParentRoute: () => StudioRoute,
 } as any)
 
 const UserDashboardRoute = UserDashboardImport.update({
-  path: '/user/dashboard',
-  getParentRoute: () => rootRoute,
+  path: '/dashboard',
+  getParentRoute: () => UserRoute,
+} as any)
+
+const UserMycoursesRoute = UserMycoursesImport.update({
+  path: '/Mycourses',
+  getParentRoute: () => UserRoute,
+} as any)
+
+const UserBrowsecoursesRoute = UserBrowsecoursesImport.update({
+  path: '/Browsecourses',
+  getParentRoute: () => UserRoute,
 } as any)
 
 const StudioCreatorStudioRoute = StudioCreatorStudioImport.update({
-  path: '/studio/creator-studio',
-  getParentRoute: () => rootRoute,
+  path: '/creator-studio',
+  getParentRoute: () => StudioRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -58,6 +82,14 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/_studio': {
+      preLoaderRoute: typeof StudioImport
+      parentRoute: typeof rootRoute
+    }
+    '/_user': {
+      preLoaderRoute: typeof UserImport
+      parentRoute: typeof rootRoute
+    }
     '/login': {
       preLoaderRoute: typeof LoginImport
       parentRoute: typeof rootRoute
@@ -66,17 +98,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OnboardingImport
       parentRoute: typeof rootRoute
     }
-    '/studio/creator-studio': {
+    '/_studio/creator-studio': {
       preLoaderRoute: typeof StudioCreatorStudioImport
-      parentRoute: typeof rootRoute
+      parentRoute: typeof StudioImport
     }
-    '/user/dashboard': {
+    '/_user/Browsecourses': {
+      preLoaderRoute: typeof UserBrowsecoursesImport
+      parentRoute: typeof UserImport
+    }
+    '/_user/Mycourses': {
+      preLoaderRoute: typeof UserMycoursesImport
+      parentRoute: typeof UserImport
+    }
+    '/_user/dashboard': {
       preLoaderRoute: typeof UserDashboardImport
-      parentRoute: typeof rootRoute
+      parentRoute: typeof UserImport
     }
-    '/studio/': {
+    '/_studio/': {
       preLoaderRoute: typeof StudioIndexImport
-      parentRoute: typeof rootRoute
+      parentRoute: typeof StudioImport
     }
   }
 }
@@ -85,11 +125,14 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren([
   IndexRoute,
+  StudioRoute.addChildren([StudioCreatorStudioRoute, StudioIndexRoute]),
+  UserRoute.addChildren([
+    UserBrowsecoursesRoute,
+    UserMycoursesRoute,
+    UserDashboardRoute,
+  ]),
   LoginRoute,
   OnboardingRoute,
-  StudioCreatorStudioRoute,
-  UserDashboardRoute,
-  StudioIndexRoute,
 ])
 
 /* prettier-ignore-end */
