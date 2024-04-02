@@ -1,8 +1,12 @@
-import { createQuery } from "react-query-kit";
+import { createMutation, createQuery } from "react-query-kit";
 import axios from "../api/axios";
 
 type Variables = { id: number };
 type data = any;
+type setRoleVariables = {
+  id: number;
+  role: string;
+};
 
 export const useGithubUser = createQuery({
   queryKey: ["user"],
@@ -15,8 +19,12 @@ export const useUploadVideo = createQuery({
 });
 
 export const useUserRole = createQuery<data, Variables>({
-  queryKey: ["role"],
+  queryKey: ["getrole"],
   fetcher: (variables: Variables) => getRole(variables.id),
+});
+
+export const useSetRole = createMutation<data, setRoleVariables>({
+  mutationFn: (variables) => setRole(variables.id, variables.role),
 });
 
 export async function getUserData() {
@@ -38,6 +46,16 @@ export async function getRole(id: number) {
     .then((res) => {
       return res;
     });
+}
+
+export async function setRole(id: number, role: string) {
+  return axios.post("/db/setRole", {
+    id: id,
+    role: role,
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("access_token"),
+    },
+  });
 }
 
 export async function handleUpload(uploadData: FormData) {

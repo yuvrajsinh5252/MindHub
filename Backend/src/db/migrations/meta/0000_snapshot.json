@@ -1,5 +1,5 @@
 {
-  "id": "49b5727f-7796-4593-a9cb-e54264836232",
+  "id": "14b62843-6c3a-4e0b-a97d-d08951e40c98",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -14,8 +14,8 @@
           "primaryKey": true,
           "notNull": true
         },
-        "creator_id": {
-          "name": "creator_id",
+        "creatorId": {
+          "name": "creatorId",
           "type": "integer",
           "primaryKey": false,
           "notNull": true
@@ -70,8 +70,8 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "creator": {
-      "name": "creator",
+    "creators": {
+      "name": "creators",
       "schema": "",
       "columns": {
         "id": {
@@ -85,8 +85,8 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "creator_id_unique": {
-          "name": "creator_id_unique",
+        "creators_id_unique": {
+          "name": "creators_id_unique",
           "nullsNotDistinct": false,
           "columns": [
             "id"

@@ -6,7 +6,7 @@ END $$;
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "file" (
 	"id" serial PRIMARY KEY NOT NULL,
-	"creator_id" integer NOT NULL,
+	"creatorId" integer NOT NULL,
 	"name" text,
 	"uploadStatus" "uploadStatus" DEFAULT 'PENDING',
 	"type" text,
@@ -16,9 +16,9 @@ CREATE TABLE IF NOT EXISTS "file" (
 	"updatedAt" timestamp NOT NULL
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "creator" (
+CREATE TABLE IF NOT EXISTS "creators" (
 	"id" integer PRIMARY KEY NOT NULL,
-	CONSTRAINT "creator_id_unique" UNIQUE("id")
+	CONSTRAINT "creators_id_unique" UNIQUE("id")
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "users" (

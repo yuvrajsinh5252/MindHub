@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import db from "../db";
-import { File, creator, users, viewer } from "../db/schema";
+import { File, creators, users, viewer } from "../db/schema";
 
 interface file {
   secure_url: string;
@@ -94,7 +94,7 @@ export const setRole = async (body: any) => {
     if (user.length == 0) return "User not found";
     else {
       if (role == "creator") {
-        const typeCreator = await db.insert(creator).values({ id: id });
+        const typeCreator = await db.insert(creators).values({ id: id });
         return typeCreator.rows[0];
       } else if (role == "user") {
         const typeViewer = await db.insert(viewer).values({ id: id });
@@ -111,11 +111,17 @@ export const getRole = async (body: any) => {
   try {
     const creatorRole = await db
       .select()
-      .from(creator)
-      .where(eq(creator.id, body.id));
+      .from(creators)
+      .where(eq(creators.id, body.id));
+
+    const viewerRole = await db
+      .select()
+      .from(viewer)
+      .where(eq(viewer.id, body.id));
 
     if (creatorRole.length > 0) return "creator";
-    else return "viewer";
+    else if (viewerRole.length > 0) return "viewer";
+    else return "not set yet";
   } catch (error) {
     console.log(error);
     return "Something went wrong while fetching user role";

@@ -22,11 +22,11 @@ export const users = pgTable("users", {
   createdAt: varchar("created_at").default(sql`now()`),
 });
 
-export const creator = pgTable("creator", {
+export const viewer = pgTable("viewer", {
   id: integer("id").unique().primaryKey(),
 });
 
-export const viewer = pgTable("viewer", {
+export const creators = pgTable("creators", {
   id: integer("id").unique().primaryKey(),
 });
 

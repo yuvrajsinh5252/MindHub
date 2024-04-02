@@ -1,10 +1,18 @@
-import axios from "@/api/axios";
 import useAuth from "@/hook/useAuth";
+import { useSetRole } from "@/querries/db";
 import { useState } from "react";
 
-export default function Roles() {
+export default function Roles({ setCurrentStep, currentStep }: {
+    setCurrentStep: any,
+    currentStep: number
+}) {
     const [role, setRole] = useState("");
     const { user } = useAuth();
+    const mutateRole = useSetRole({
+        onSettled: () => {
+            setCurrentStep(currentStep + 1);
+        }
+    });
 
     return (
         <div className="flex justify-center rounded-md w-full flex-col gap-8 p-8">
@@ -32,17 +40,15 @@ export default function Roles() {
             </div>
 
             <button
-                onClick={async () => {
+                onClick={() => {
                     if (role) {
-                        await axios.post("/db/setRole", {
-                            id: user.id,
-                            role: role,
-                        });
+                        mutateRole.mutate({ id: user.id, role: role });
                     }
                 }}
+                disabled={mutateRole.isPending}
                 className="m-auto border-2 font-[700] px-4 py-2 w-32 rounded-full hover:bg-blue-600 hover:text-white transition duration-500 ease-in-out bg-white text-black border-black hover:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-0"
             >
-                submit
+                {mutateRole.isPending ? "Setting..." : "Set Role"}
             </button>
         </div >
     )

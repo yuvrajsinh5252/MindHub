@@ -8,6 +8,37 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
   const { data: role, isLoading } = useUserRole({ variables: { id: user?.id }, enabled: !!user?.id });
 
+  const path = window.location.pathname;
+  const viewerPath = ["/dashboard", "/Browsecourses", "/Mycourses"];
+  const studioPath = ["/creator-studio"];
+
+  if ((viewerPath.includes(path) && role?.data === "creator") || (studioPath.includes(path) && role?.data === "viewer")) {
+    return (
+      <div className="flex justify-center items-center">
+        <div className="lg:pt-20 flex flex-col justify-center items-center gap-5">
+          <div className="text-red-500">You are not authorized to access this page</div>
+          {
+            role?.data === "creator" ? (
+              <Button
+                className={buttonVariants({
+                  size: "sm",
+                  variant: "secondary",
+                })}
+                onClick={() => navigate({ to: "/creator-studio" })}> Go to creator studio </Button>
+            ) : (
+              <Button
+                className={buttonVariants({
+                  size: "sm",
+                  variant: "secondary",
+                })}
+                onClick={() => navigate({ to: "/dashboard" })}> Go to dashboard </Button>
+            )
+          }
+        </div>
+      </div>
+    )
+  }
+
   if (error) {
     return (
       <div className="flex justify-center items-center">
