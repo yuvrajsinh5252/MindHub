@@ -32,7 +32,7 @@ export const viewer = pgTable("viewer", {
 
 export const File = pgTable("file", {
   id: serial("id").primaryKey(),
-  userId: integer("userId").references(() => creator.id),
+  creatorID: integer("creatorId").notNull(),
   name: text("name"),
 
   uploadStatus: uploadStatusEnum("uploadStatus").default("PENDING"),
@@ -44,5 +44,4 @@ export const File = pgTable("file", {
     .notNull()
     .default(sql`now()`),
   updatedAt: timestamp("updatedAt").notNull(),
-  creatorId: integer("creatorId").references(() => creator.id),
 });

@@ -6,7 +6,7 @@ import { useUserRole } from "@/querries/db";
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated, loading, error, user } = useAuth();
   const navigate = useNavigate();
-  const { data: role, isLoading } = useUserRole(user?.id);
+  const { data: role, isLoading } = useUserRole({ variables: { id: user?.id }, enabled: !!user?.id });
 
   if (error) {
     return (

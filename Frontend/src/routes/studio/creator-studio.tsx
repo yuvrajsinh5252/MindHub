@@ -1,11 +1,8 @@
-import { handleUpload } from '@/querries/db';
+import { useToast } from '@/components/ui/use-toast';
+import { handleUpload, useGithubUser } from '@/querries/db';
 import { useMutation } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router'
 import { useRef, useState } from 'react';
-
-interface UploadProps {
-  formData: FormData;
-}
 
 export const Route = createFileRoute('/studio/creator-studio')({
   component: studio,
@@ -16,16 +13,10 @@ function studio() {
   const [img, setImg] = useState<File>();
   const [video, setVideo] = useState<File>();
   const [type, setType] = useState<string>("");
+  const { toast } = useToast();
 
-  const uploadMutation = useMutation({
-    mutationFn: handleUpload,
-    onSuccess: () => {
-      console.log("File uploaded successfully");
-    },
-    onError: (error) => {
-      console.log("Error uploading file", error);
-    }
-  })
+  const { data: user, isSuccess, error } = useGithubUser();
+  const uploadMutation = useMutation({ mutationFn: handleUpload })
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,14 +25,33 @@ function studio() {
     formData.append("file", type === "image" ? img! : video!);
     formData.append("upload_preset", type === "image" ? "image_preset" : "videos_preset");
 
-    const uploadData: UploadProps = { formData };
-    uploadMutation.mutate(uploadData);
+    if (isSuccess) {
+      if ((type === "image" && img != null) || (type === "video" && video != null)) {
+        formData.append("userId", user?.data.id.toString());
+        uploadMutation.mutate(formData);
+      } else {
+        toast({
+          title: 'Error uploading file!',
+          description: 'Please select a file to upload',
+          variant: 'default',
+          duration: 4000,
+        });
+      }
+    } else {
+      toast({
+        title: 'Did not get user data!',
+        description: `${error}`,
+        variant: 'default',
+        duration: 4000,
+      });
+    }
     formRef.current?.reset();
   };
 
 
   return (
     <div>
+      {!isSuccess && <div>Loading...</div>}
       {
         uploadMutation.isPending ? (
           <div className="bg-blue-500 text-white p-2 rounded-md m-2">Uploading...</div>

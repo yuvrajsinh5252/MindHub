@@ -16,7 +16,7 @@ const app = new Elysia()
       .post("/createUser", ({ set, request }) => createUser(set, request))
       .post("/setRole", ({ body }) => setRole(body))
       .post("/getRole", ({ body }) => getRole(body))
-      .post("/uploadVideo", ({ body }) => uploadVideo(body));
+      .post("/uploadVideo", ({ set, body }) => uploadVideo(set, body));
   })
 
   .listen(3000);

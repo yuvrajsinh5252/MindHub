@@ -1,9 +1,8 @@
 import { createQuery } from "react-query-kit";
 import axios from "../api/axios";
 
-interface UploadProps {
-  formData: FormData;
-}
+type Variables = { id: number };
+type data = any;
 
 export const useGithubUser = createQuery({
   queryKey: ["user"],
@@ -15,12 +14,9 @@ export const useUploadVideo = createQuery({
   fetcher: handleUpload,
 });
 
-type Variables = { id: number };
-type data = { role: string };
-
 export const useUserRole = createQuery<data, Variables>({
   queryKey: ["role"],
-  fetcher: (variables) => getRole(variables.id),
+  fetcher: (variables: Variables) => getRole(variables.id),
 });
 
 export async function getUserData() {
@@ -32,7 +28,6 @@ export async function getUserData() {
 }
 
 export async function getRole(id: number) {
-  console.log("id", id);
   return axios
     .post("/db/getRole", {
       id: id,
@@ -41,18 +36,20 @@ export async function getRole(id: number) {
       },
     })
     .then((res) => {
-      return res.data;
+      return res;
     });
 }
 
-export async function handleUpload(uploadData: UploadProps) {
+export async function handleUpload(uploadData: FormData) {
   try {
-    await axios.post("/db/uploadVideo", uploadData.formData, {
+    const data = await axios.post("/db/uploadVideo", uploadData, {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("access_token"),
         "Content-Type": "application/x-www-form-urlencoded",
       },
     });
+
+    console.log(data);
   } catch (error) {
     console.log("Error uploading file", error);
   }

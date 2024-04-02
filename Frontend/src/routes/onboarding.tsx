@@ -2,25 +2,27 @@ import Stepper from '@/components/Stepper';
 import Roles from '@/components/roles';
 import { useGithubUser, useUserRole } from '@/querries/db';
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export const Route = createFileRoute('/onboarding')({
   component: OnBoarding,
 })
 
 function OnBoarding() {
-  const { data: user, isLoading, error: userError } = useGithubUser();
-  const { data: role, isLoading: roleLoading, error } = useUserRole({ variables: user?.data.id, enabled: !!user?.data.id });
+  const { data: user, isLoading: userLoading, error: userError } = useGithubUser();
+  const { data: role, isLoading: roleLoading, error: roleError } = useUserRole({ variables: { id: user?.data.id }, enabled: !!user?.data.id });
   const navigate = useNavigate();
 
-  if (user?.data.id && role?.role == "viewer") navigate({ to: '/user/dashboard' })
-  else if (role?.role == "creator") navigate({ to: '/studio/creator-studio' })
+  useEffect(() => {
+    if (role?.data == "viewer") navigate({ to: '/user/dashboard' })
+    else if (role?.data === "creator") navigate({ to: '/studio/creator-studio' })
+  })
 
-  if (error || userError) {
+  if (roleError || userError) {
     return (
       <div className='h-screen flex justify-center items-center flex-col dark:bg-zinc-800 dark:text-white'>
         <h1>Something went wrong</h1>
-        {error && <p>{error.message}</p>}
+        {roleError && <p>{roleError.message}</p>}
         {userError && <p>{userError.message}</p>}
       </div>
     )
@@ -29,7 +31,7 @@ function OnBoarding() {
   return (
     <div>
       {
-        roleLoading || isLoading ? (
+        roleLoading || userLoading ? (
           <div className='h-screen flex justify-center items-center flex-col dark:bg-zinc-800 dark:text-white'>
             Checking your role...
           </div>

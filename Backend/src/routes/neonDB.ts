@@ -1,6 +1,13 @@
 import { eq } from "drizzle-orm";
 import db from "../db";
-import { creator, users, viewer } from "../db/schema";
+import { File, creator, users, viewer } from "../db/schema";
+
+interface file {
+  secure_url: string;
+  original_filename: string;
+  resource_type: string;
+  bytes: number;
+}
 
 export const createUser = async (set: any, request: Request) => {
   const { id, username } = await request.json();
@@ -29,8 +36,9 @@ export const createUser = async (set: any, request: Request) => {
   }
 };
 
-export const uploadVideo = async (body: any) => {
+export const uploadVideo = async (set: any, body: any) => {
   const type = body.file.type;
+  const creatorID = body.userId;
 
   const formdata = new FormData();
   formdata.append("file", body.file);
@@ -43,9 +51,38 @@ export const uploadVideo = async (body: any) => {
   const response = await fetch(url, {
     method: "POST",
     body: formdata,
-  });
-  response.json();
-  console.log(response);
+  }).then((res) => res.json());
+
+  const { secure_url, original_filename, resource_type, bytes }: file =
+    response;
+
+  console.log("secure_url: ", secure_url);
+
+  try {
+    await db.insert(File).values({
+      creatorID: creatorID,
+      name: original_filename,
+      type: resource_type,
+      url: secure_url,
+      size: bytes,
+      updatedAt: new Date(),
+    });
+  } catch (error) {
+    console.log(error);
+    set.status(500);
+    return "Something went wrong while uploading file";
+  }
+
+  console.log("file uploaded");
+
+  const file = await db
+    .select()
+    .from(File)
+    .where(eq(File.name, original_filename));
+
+  console.log("file: ", file);
+
+  return secure_url;
 };
 
 export const setRole = async (body: any) => {
@@ -71,13 +108,12 @@ export const setRole = async (body: any) => {
 };
 
 export const getRole = async (body: any) => {
-  // console.log(body);
-
   try {
     const creatorRole = await db
       .select()
       .from(creator)
       .where(eq(creator.id, body.id));
+
     if (creatorRole.length > 0) return "creator";
     else return "viewer";
   } catch (error) {

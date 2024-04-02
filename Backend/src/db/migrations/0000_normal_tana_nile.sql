@@ -6,14 +6,14 @@ END $$;
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "file" (
 	"id" serial PRIMARY KEY NOT NULL,
+	"creator_id" integer NOT NULL,
 	"name" text,
 	"uploadStatus" "uploadStatus" DEFAULT 'PENDING',
 	"type" text,
 	"url" text,
 	"size" integer,
 	"createdAt" timestamp DEFAULT now() NOT NULL,
-	"updatedAt" timestamp NOT NULL,
-	"creatorId" integer
+	"updatedAt" timestamp NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "creator" (
@@ -24,14 +24,12 @@ CREATE TABLE IF NOT EXISTS "creator" (
 CREATE TABLE IF NOT EXISTS "users" (
 	"id" varchar PRIMARY KEY NOT NULL,
 	"name" varchar NOT NULL,
-	"role" varchar,
 	"created_at" varchar DEFAULT now(),
 	CONSTRAINT "users_id_unique" UNIQUE("id"),
 	CONSTRAINT "users_name_unique" UNIQUE("name")
 );
 --> statement-breakpoint
-DO $$ BEGIN
- ALTER TABLE "file" ADD CONSTRAINT "file_creatorId_creator_id_fk" FOREIGN KEY ("creatorId") REFERENCES "creator"("id") ON DELETE no action ON UPDATE no action;
-EXCEPTION
- WHEN duplicate_object THEN null;
-END $$;
+CREATE TABLE IF NOT EXISTS "viewer" (
+	"id" integer PRIMARY KEY NOT NULL,
+	CONSTRAINT "viewer_id_unique" UNIQUE("id")
+);
