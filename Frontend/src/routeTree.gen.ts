@@ -20,6 +20,7 @@ import { Route as UserDashboardImport } from './routes/_user/dashboard'
 import { Route as UserMycoursesImport } from './routes/_user/Mycourses'
 import { Route as UserBrowsecoursesImport } from './routes/_user/Browsecourses'
 import { Route as StudioCreatorStudioImport } from './routes/_studio/creator-studio'
+import { Route as StudioCreatorDashboardImport } from './routes/_studio/creator-dashboard'
 
 // Create/Update Routes
 
@@ -68,6 +69,11 @@ const StudioCreatorStudioRoute = StudioCreatorStudioImport.update({
   getParentRoute: () => StudioRoute,
 } as any)
 
+const StudioCreatorDashboardRoute = StudioCreatorDashboardImport.update({
+  path: '/creator-dashboard',
+  getParentRoute: () => StudioRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -92,6 +98,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OnboardingImport
       parentRoute: typeof rootRoute
     }
+    '/_studio/creator-dashboard': {
+      preLoaderRoute: typeof StudioCreatorDashboardImport
+      parentRoute: typeof StudioImport
+    }
     '/_studio/creator-studio': {
       preLoaderRoute: typeof StudioCreatorStudioImport
       parentRoute: typeof StudioImport
@@ -115,7 +125,10 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren([
   IndexRoute,
-  StudioRoute.addChildren([StudioCreatorStudioRoute]),
+  StudioRoute.addChildren([
+    StudioCreatorDashboardRoute,
+    StudioCreatorStudioRoute,
+  ]),
   UserRoute.addChildren([
     UserBrowsecoursesRoute,
     UserMycoursesRoute,

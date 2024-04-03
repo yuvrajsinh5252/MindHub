@@ -1,3 +1,8 @@
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Skeleton } from '@/components/ui/skeleton';
 import { useToast } from '@/components/ui/use-toast';
 import { handleUpload, useGithubUser } from '@/querries/db';
 import { useMutation } from '@tanstack/react-query';
@@ -5,7 +10,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useRef, useState } from 'react';
 
 export const Route = createFileRoute('/_studio/creator-studio')({
-  component: studio,
+  component: creatorStudio,
 })
 
 function studio() {
@@ -86,6 +91,52 @@ function studio() {
           <button className="bg-blue-500 w-24 text-white p-2 rounded-md m-2" type="submit">Upload</button>
         </div>
       </form>
+    </div>
+  );
+}
+
+function creatorStudio() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className='divide-y-2'>
+      <div className="flex justify-between p-2 pr-20 h-24 mb-2 font-[600]">
+        <div className="text-3xl my-auto font-semibold space-y-3">
+          Your Courses
+        </div>
+        <div className='my-auto'>
+          <Button
+            onClick={() => setOpen(true)}
+            variant="outline">
+            Create Courses
+          </Button>
+          <Dialog open={open}>
+            <DialogContent className="sm:max-w-[700px]">
+              <DialogHeader>
+                <DialogTitle></DialogTitle>
+                <DialogDescription>
+                  Create your course here by adding the course name and description below.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="">
+                <div>
+
+                </div>
+              </div>
+              <DialogFooter>
+                <Button>
+                  next
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        </div>
+      </div>
+      <div>
+        <div className="flex flex-col gap-5 p-2 pt-6">
+          <Skeleton className="h-[250px] w-96 rounded-xl" />
+        </div>
+      </div>
     </div>
   );
 }
