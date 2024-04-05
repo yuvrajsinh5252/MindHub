@@ -16,7 +16,7 @@ export default function Sidebar({ open }: { open: boolean }) {
     }, [window.location.pathname]);
 
     return (
-        <div className={`h-full text-white flex justify-start flex-col overflow-x-hidden overflow-y-scroll ${open ? "min-w-16" : "min-w-52"}`}>
+        <div className={`h-full text-white flex justify-start flex-col overflow-x-hidden transition-all duration-300 ease-in-out overflow-y-scroll ${open ? "min-w-16" : "min-w-52"}`}>
             <div className={`flex flex-col font-semibold text-xl justify-start items-center py-5 ${open ? "" : "pb-14"}`}>
                 <GraduationCap size={open ? 38 : 60} />
                 <span className={`${open ? "hidden" : "visible"}`}>MindHub</span>
@@ -75,18 +75,16 @@ export default function Sidebar({ open }: { open: boolean }) {
                 <button
                     onClick={() => navigate({ to: "/creator-studio" })}
                     className={"flex gap-3 items-start bg-black rounded-lg p-2 w-full" +
-                        (path === "/creator-studio" ? " bg-white text-black" : "")
+                        (path === "/Ccreator-studio" ? " bg-white text-black" : "")
                     }>
                     <Podcast />
                     <span className={`${open ? "hidden" : "visible"}`}>Go Live</span>
                 </button>
             </div>
 
-            <footer className="w-full flex gap-3 p-3 m-auto border-t-2">
+            <footer onClick={handleLogout} className="w-full flex gap-3 cursor-pointer p-3 m-auto border-t-2">
                 <LogOut />
-                <div onClick={handleLogout} className="cursor-pointer">
-                    <span className={`${open ? "hidden" : "visible"}`}>Logout</span>
-                </div>
+                <span className={`${open ? "hidden" : "visible"}`}>Logout</span>
             </footer>
         </div >
     );
