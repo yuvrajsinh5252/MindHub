@@ -16,15 +16,15 @@ export default function Sidebar({ open }: { open: boolean }) {
     }, [window.location.pathname]);
 
     return (
-        <div className={`min-w-52 h-full max-sm:hidden text-white flex justify-start flex-col overflow-x-hidden overflow-y-scroll ${open ? "hidden" : "visible"}`}>
-            <div className="flex flex-col pb-14 font-semibold text-xl justify-start items-center py-5 ">
-                <GraduationCap size={60} />
-                MindHub
+        <div className={`h-full text-white flex justify-start flex-col overflow-x-hidden overflow-y-scroll ${open ? "min-w-16" : "min-w-52"}`}>
+            <div className={`flex flex-col font-semibold text-xl justify-start items-center py-5 ${open ? "" : "pb-14"}`}>
+                <GraduationCap size={open ? 38 : 60} />
+                <span className={`${open ? "hidden" : "visible"}`}>MindHub</span>
             </div>
-            <div className="border-t-2 border-b-2 border-white"></div>
+            <div className="border-b-2 border-white"></div>
             {
                 isLoading ? (
-                    <div className="mt-5 flex items-start gap-5">
+                    <div className={`mt-5 flex items-start gap-5 + ${open ? "hidden" : "visible"}`}>
                         <Skeleton className="w-12 h-12 rounded-full" />
                         <div className="flex flex-col gap-2">
                             <Skeleton className="w-24 h-4" />
@@ -32,7 +32,7 @@ export default function Sidebar({ open }: { open: boolean }) {
                         </div>
                     </div>
                 ) : (
-                    <div className="mt-5 flex items-start gap-5">
+                    <div className={`mt-5 flex items-start gap-5 + ${open ? "hidden" : "visible"}`}>
                         <div className="ml-2">
                             <img
                                 className="w-12 h-12 rounded-full"
@@ -55,37 +55,37 @@ export default function Sidebar({ open }: { open: boolean }) {
                     </div>
                 )
             }
-            <div className="flex flex-col gap-5 items-start h-full px-2 pt-14 pb-10">
+            <div className={`flex flex-col gap-5 items-start h-full px-2 pb-10 ${open ? "pt-5" : "pt-14"}`}>
                 <button
                     onClick={() => navigate({ to: "/creator-dashboard" })}
-                    className={"flex gap-3 items-start bg-black rounded-lg p-2 w-full min-w-32" +
+                    className={"flex gap-3 items-start bg-black rounded-lg p-2 w-full" +
                         (path === "/creator-dashboard" ? " bg-white text-black" : "")
                     }>
                     <LayoutDashboard />
-                    Dashboard
+                    <span className={`${open ? "hidden" : "visible"}`}>Dashboard</span>
                 </button>
                 <button
                     onClick={() => navigate({ to: "/creator-studio" })}
-                    className={"flex gap-3 items-start bg-black rounded-lg p-2 w-full min-w-32" +
+                    className={"flex gap-3 items-start bg-black rounded-lg p-2 w-full" +
                         (path === "/creator-studio" ? " bg-white text-black" : "")
                     }>
                     <MonitorPlay />
-                    Studio
+                    <span className={`${open ? "hidden" : "visible"}`}>Studio</span>
                 </button>
                 <button
                     onClick={() => navigate({ to: "/creator-studio" })}
-                    className={"flex gap-3 items-start bg-black rounded-lg p-2 w-full min-w-32" +
+                    className={"flex gap-3 items-start bg-black rounded-lg p-2 w-full" +
                         (path === "/creator-studio" ? " bg-white text-black" : "")
                     }>
                     <Podcast />
-                    Go Live
+                    <span className={`${open ? "hidden" : "visible"}`}>Go Live</span>
                 </button>
             </div>
 
-            <footer className="w-full flex gap-3 p-4 m-1 border-t-2">
+            <footer className="w-full flex gap-3 p-3 m-auto border-t-2">
                 <LogOut />
                 <div onClick={handleLogout} className="cursor-pointer">
-                    Logout
+                    <span className={`${open ? "hidden" : "visible"}`}>Logout</span>
                 </div>
             </footer>
         </div >

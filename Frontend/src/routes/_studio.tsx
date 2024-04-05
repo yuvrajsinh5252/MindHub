@@ -32,7 +32,7 @@ function LayoutComponent() {
             <Outlet />
           </div>
           {/* page content ends */}
-        </div>
+          t</div>
       </div>
     </ProtectedRoute>
   )
