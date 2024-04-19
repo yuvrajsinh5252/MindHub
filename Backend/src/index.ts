@@ -1,7 +1,14 @@
 import cors from "@elysiajs/cors";
 import { Elysia } from "elysia";
 import { getAccessToken, githubAuth } from "./routes/auth";
-import { createUser, getRole, setRole, uploadVideo } from "./routes/neonDB";
+import {
+  createUser,
+  getCreatorCourse,
+  getRole,
+  getViewerCourse,
+  setRole,
+  uploadCourse,
+} from "./routes/neonDB";
 
 const app = new Elysia()
   .use(cors())
@@ -16,7 +23,9 @@ const app = new Elysia()
       .post("/createUser", ({ set, body }) => createUser(set, body))
       .post("/setRole", ({ body }) => setRole(body))
       .post("/getRole", ({ body }) => getRole(body))
-      .post("/uploadVideo", ({ set, body }) => uploadVideo(set, body));
+      .post("/uploadCourse", ({ set, body }) => uploadCourse(set, body))
+      .post("/getCreatorCourse", ({ body }) => getCreatorCourse(body))
+      .post("/getViewerCourse", () => getViewerCourse());
   })
 
   .listen(3000);

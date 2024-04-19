@@ -1,6 +1,5 @@
 import { sql } from "drizzle-orm";
 import {
-  serial,
   text,
   pgTable,
   integer,
@@ -31,8 +30,7 @@ export const creators = pgTable("creators", {
 });
 
 export const File = pgTable("file", {
-  id: serial("id").primaryKey(),
-  creatorID: integer("creatorId").notNull(),
+  id: varchar("id").primaryKey(),
   name: text("name"),
 
   uploadStatus: uploadStatusEnum("uploadStatus").default("PENDING"),
@@ -44,4 +42,17 @@ export const File = pgTable("file", {
     .notNull()
     .default(sql`now()`),
   updatedAt: timestamp("updatedAt").notNull(),
+});
+
+export const course = pgTable("course", {
+  creator_id: integer("creator_id").notNull(),
+  name: varchar("name").unique().notNull(),
+  courseUrl: text("course_url").notNull(),
+  file_id: varchar("file_id")
+    .notNull()
+    .references(() => File.id),
+  description: text("description"),
+  courseTags: text("course_tags"),
+  category: text("category"),
+  createdAt: varchar("created_at").default(sql`now()`),
 });
