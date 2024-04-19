@@ -22,6 +22,16 @@ export const useSetRole = createMutation<data, setRoleVariables>({
   mutationFn: (variables) => setRole(variables.id, variables.role),
 });
 
+export const useCreatorCourse = createQuery<data, Variables>({
+  queryKey: ["creatorCourse"],
+  fetcher: (variables: Variables) => getCreatorCourse(variables.id),
+});
+
+export const useViewerCourse = createQuery<data, void>({
+  queryKey: ["viewerCourse"],
+  fetcher: getViewerCourse,
+});
+
 export async function getUserData() {
   return axios.get("/auth/getUser", {
     headers: {
@@ -66,4 +76,21 @@ export async function uploadCourse(uploadData: FormData) {
   } catch (error) {
     console.log("Error uploading file", error);
   }
+}
+
+export async function getCreatorCourse(id: number) {
+  return axios.post("/db/getCreatorCourse", {
+    id: id,
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("access_token"),
+    },
+  });
+}
+
+export async function getViewerCourse() {
+  return axios.post("/db/getViewerCourse", {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("access_token"),
+    },
+  });
 }

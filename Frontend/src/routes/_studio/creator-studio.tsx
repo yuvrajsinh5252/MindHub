@@ -1,14 +1,15 @@
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useToast } from '@/components/ui/use-toast';
-import { uploadCourse, useGithubUser } from '@/querries/db';
+import { uploadCourse, useCreatorCourse, useGithubUser } from '@/querries/db';
 import { useMutation } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router'
-import { X } from 'lucide-react';
+import { Loader2, X } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import CouresUpload1 from '@/components/courses/CourseUpload-1';
 import CouresUpload2 from '@/components/courses/CourseUpload-2';
 import { CourseContext } from '@/components/courses/CourseContext';
+import CourseBox from '@/components/courses/CourseBox';
 
 export const Route = createFileRoute('/_studio/creator-studio')({
   component: creatorStudio,
@@ -22,11 +23,11 @@ function creatorStudio() {
 
   const { toast } = useToast();
 
-  const { data: user, isSuccess, error } = useGithubUser();
+  const { data: user, isSuccess, error, isLoading: userLoading } = useGithubUser();
   const uploadMutation = useMutation({ mutationFn: uploadCourse })
+  const { data: courseData, isLoading } = useCreatorCourse({ variables: { id: user?.data.id }, enabled: !!user?.data.id });
 
   function handleCourseUpload() {
-    console.log("uploading course");
     if (isSuccess) {
       formData.append("userId", user?.data.id.toString());
       uploadMutation.mutate(formData);
@@ -113,14 +114,37 @@ function creatorStudio() {
         </div>
       </div>
       <div>
-        <div className="absolute right-[42%] top-[40%]">
-          <div className="flex flex-col items-center gap-5">
-            <img src="/EmptyState.png" alt="image" className="rounded-md h-32 w-32" />
-            <div className="text-lg font-semibold dark:text-white text-gray-500 text-center w-72 px-5 py-2">
-              Pretty much empty here...
+        {
+          isLoading || userLoading ? (
+            <div className="h-[calc(100vh-12rem)] flex justify-center items-center">
+              <div className="flex flex-col items-center gap-5">
+                <Loader2 className="h-12 w-12 text-blue-500 animate-spin" />
+                <div className="text-lg font-semibold dark:text-white text-gray-500 text-center w-72 px-5 py-2">
+                  Loading...
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          ) : (
+            courseData && courseData.data.length > 0 ? (
+              <div className='h-[calc(100vh-12rem)] flex pt-4 pl-4 gap-10'>
+                {
+                  courseData?.data.map((course: any, index: number) => (
+                    <CourseBox key={index} course={course} index={index} />
+                  ))
+                }
+              </div>
+            ) : (
+              <div className="h-[calc(100vh-12rem)] flex justify-center items-center">
+                <div className="flex flex-col items-center gap-5">
+                  <img src="/EmptyState.png" alt="image" className="rounded-md h-32 w-32" />
+                  <div className="text-lg font-semibold dark:text-white text-gray-500 text-center w-72 px-5 py-2">
+                    Pretty much empty here...
+                  </div>
+                </div>
+              </div>
+            )
+          )
+        }
       </div>
     </div>
   );
