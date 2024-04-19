@@ -13,11 +13,6 @@ export const useGithubUser = createQuery({
   fetcher: getUserData,
 });
 
-export const useUploadVideo = createQuery({
-  queryKey: ["upload"],
-  fetcher: handleUpload,
-});
-
 export const useUserRole = createQuery<data, Variables>({
   queryKey: ["getrole"],
   fetcher: (variables: Variables) => getRole(variables.id),
@@ -58,9 +53,9 @@ export async function setRole(id: number, role: string) {
   });
 }
 
-export async function handleUpload(uploadData: FormData) {
+export async function uploadCourse(uploadData: FormData) {
   try {
-    const data = await axios.post("/db/uploadVideo", uploadData, {
+    const data = await axios.post("/db/uploadCourse", uploadData, {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("access_token"),
         "Content-Type": "application/x-www-form-urlencoded",

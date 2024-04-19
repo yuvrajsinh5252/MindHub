@@ -4,6 +4,7 @@ import Sidebar from '@/components/studio/sidebar'
 import { Outlet, createFileRoute } from '@tanstack/react-router'
 import { ChevronRight } from 'lucide-react'
 import { useState } from 'react'
+import CourseProvider from '@/components/courses/CourseContext';
 
 export const Route = createFileRoute('/_studio')({
   component: LayoutComponent,
@@ -29,7 +30,9 @@ function LayoutComponent() {
             >
               <ChevronRight className='w-5 h-16' />
             </button>
-            <Outlet />
+            <CourseProvider>
+              <Outlet />
+            </CourseProvider>
           </div>
           {/* page content ends */}
           t</div>

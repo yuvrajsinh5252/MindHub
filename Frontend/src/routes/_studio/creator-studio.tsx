@@ -1,46 +1,35 @@
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useToast } from '@/components/ui/use-toast';
-import { handleUpload, useGithubUser } from '@/querries/db';
+import { uploadCourse, useGithubUser } from '@/querries/db';
 import { useMutation } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router'
 import { X } from 'lucide-react';
-import { useRef, useState } from 'react';
-import CouresUpload1 from '@/components/studio/CourseUpload-1';
+import React, { useEffect, useState } from 'react';
+import CouresUpload1 from '@/components/courses/CourseUpload-1';
+import CouresUpload2 from '@/components/courses/CourseUpload-2';
+import { CourseContext } from '@/components/courses/CourseContext';
 
 export const Route = createFileRoute('/_studio/creator-studio')({
   component: creatorStudio,
 })
 
-function studio() {
-  const formRef = useRef<HTMLFormElement | null>(null);
-  const [img, setImg] = useState<File>();
-  const [video, setVideo] = useState<File>();
-  const [type, setType] = useState<string>("");
+function creatorStudio() {
+  const { formData, dataSaved } = React.useContext(CourseContext);
+
+  const [open, setOpen] = useState(false);
+  const [next, setNext] = useState(false);
+
   const { toast } = useToast();
 
   const { data: user, isSuccess, error } = useGithubUser();
-  const uploadMutation = useMutation({ mutationFn: handleUpload })
+  const uploadMutation = useMutation({ mutationFn: uploadCourse })
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const formData = new FormData();
-    formData.append("file", type === "image" ? img! : video!);
-    formData.append("upload_preset", type === "image" ? "image_preset" : "videos_preset");
-
+  function handleCourseUpload() {
+    console.log("uploading course");
     if (isSuccess) {
-      if ((type === "image" && img != null) || (type === "video" && video != null)) {
-        formData.append("userId", user?.data.id.toString());
-        uploadMutation.mutate(formData);
-      } else {
-        toast({
-          title: 'Error uploading file!',
-          description: 'Please select a file to upload',
-          variant: 'default',
-          duration: 4000,
-        });
-      }
+      formData.append("userId", user?.data.id.toString());
+      uploadMutation.mutate(formData);
     } else {
       toast({
         title: 'Did not get user data!',
@@ -49,53 +38,22 @@ function studio() {
         duration: 4000,
       });
     }
-    formRef.current?.reset();
-  };
+  }
 
+  useEffect(() => {
+    if (uploadMutation.isSuccess) {
+      toast({
+        title: 'Course uploaded successfully!',
+        description: 'You can now view your course in the courses section',
+        duration: 4000,
+      });
 
-  return (
-    <div>
-      {!isSuccess && <div>Loading...</div>}
-      {
-        uploadMutation.isPending ? (
-          <div className="bg-blue-500 text-white p-2 rounded-md m-2">Uploading...</div>
-        ) : uploadMutation.isError ? (
-          <div className="bg-red-500 text-white p-2 rounded-md m-2">Error uploading file</div>
-        ) : uploadMutation.isSuccess ? (
-          <div className="bg-green-500 text-white p-2 rounded-md m-2">File uploaded successfully</div>
-        ) : (
-          <div className="bg-blue-500 text-white p-2 rounded-md m-2">Upload an image or video</div>
-        )
-      }
-      <form ref={formRef} onSubmit={handleSubmit} encType="multipart/form-data">
-        <div className="flex flex-col gap-5 items-center pt-10">
-          <div>
-            <label htmlFor="image" className="bg-blue-500 w-24 text-white p-2 rounded-md m-2">Upload Image</label>
-            <input type="file" name="image" accept="image/*"
-              onChange={(e) => {
-                setImg(e.target.files?.item(0)!)
-                setType("image")
-              }}
-            />
-          </div>
-          <div>
-            <label htmlFor="video" className="bg-blue-500 w-24 text-white p-2 rounded-md m-2">Upload Video</label>
-            <input type="file" name="video" accept="video/*"
-              onChange={(e) => {
-                setVideo(e.target.files?.item(0) as File)
-                setType("video")
-              }}
-            />
-          </div>
-          <button className="bg-blue-500 w-24 text-white p-2 rounded-md m-2" type="submit">Upload</button>
-        </div>
-      </form>
-    </div>
-  );
-}
-
-function creatorStudio() {
-  const [open, setOpen] = useState(false);
+      setTimeout(() => {
+        setNext(false);
+        setOpen(false);
+      }, 4000);
+    }
+  }, [uploadMutation.isSuccess]);
 
   return (
     <div className='divide-y-2'>
@@ -113,14 +71,41 @@ function creatorStudio() {
             <DialogContent className="max-w-[800px]">
               <X className="absolute top-1 cursor-pointer right-1 dark:text-white" onClick={() => setOpen(false)} />
               <DialogHeader>
-                <DialogTitle></DialogTitle>
                 <DialogDescription>
-                  Create your course here by adding the course name and description below.
+                  {
+                    !next ? <>Create your course here by adding the course name and description below.</> : <></>
+                  }
                 </DialogDescription>
+                <DialogTitle>
+                  {
+                    !next ? <></> :
+                      uploadMutation.isPending ? (
+                        <div className="bg-blue-500 text-center text-white p-2 rounded-md m-2">Uploading...</div>
+                      ) : uploadMutation.isError ? (
+                        <div className="bg-red-500 text-center text-white p-2 rounded-md m-2">Error uploading file</div>
+                      ) : uploadMutation.isSuccess ? (
+                        <div className="bg-green-500 text-center text-white p-2 rounded-md m-2">File uploaded successfully</div>
+                      ) : (
+                        <div className="bg-blue-500 text-center text-white p-2 rounded-md m-2">Upload your course</div>
+                      )
+                  }
+                </DialogTitle>
               </DialogHeader>
-              <CouresUpload1 />
+              {
+                !next ? <CouresUpload1 /> : <CouresUpload2 />
+              }
               <DialogFooter>
-                <Button>next</Button>
+                <Button onClick={() => {
+                  if (next) handleCourseUpload();
+                  else {
+                    if (dataSaved) setNext(true);
+                    else alert("Please save the course details first");
+                  }
+                }}>
+                  {
+                    next ? "Upload Course" : "Next"
+                  }
+                </Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>

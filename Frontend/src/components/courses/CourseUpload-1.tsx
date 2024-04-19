@@ -1,22 +1,25 @@
 import { ArrowBigRight, Plus } from "lucide-react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { CourseContext } from "./CourseContext";
 
 export default function CouresUpload1() {
   const [courseImage, setCourseImage] = useState<File>();
   const tags: { [key: string]: boolean } = {};
+  const { setFormData, setDataSaved, dataSaved } = React.useContext(CourseContext);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    console.log(tags);
     e.preventDefault();
     const formData = new FormData();
 
     formData.append("courseTitle", (e.target as any).courseTitle.value);
     formData.append("courseCategory", (e.target as any).courseCategory.value);
     formData.append("courseDescription", (e.target as any).courseDescription.value);
+    formData.append("courseImage", courseImage!);
 
-    localStorage.setItem("courseData", JSON.stringify(Object.fromEntries(formData.entries())));
+    setFormData(formData)
+    setDataSaved(true);
   }
 
   return (
@@ -26,21 +29,21 @@ export default function CouresUpload1() {
           <div className='pt-2'>
             <div className="flex flex-col gap-3 p-2">
               <span className='flex gap-2 items-center'>
-                <ArrowBigRight className="text-blue-500" />
+                <ArrowBigRight className="text-blue-300" />
                 <label htmlFor="courseTitle" className="text-md hover:underline underline-offset-4">Course Title</label>
               </span>
               <Input type="text" name="courseTitle" id="courseTitle" required placeholder="Enter course title" />
             </div>
             <div className="flex flex-col gap-3 p-2">
               <span className='flex gap-2 items-center'>
-                <ArrowBigRight className="text-blue-500" />
+                <ArrowBigRight className="text-blue-300" />
                 <label htmlFor="courseCategory" className="text-md hover:underline underline-offset-4">Course Category</label>
               </span>
               <Input type="text" name="courseCategory" id="courseCategory" required placeholder="Enter course category" />
             </div>
             <div className='flex flex-col gap-3 p-2'>
               <span className='flex gap-2 items-center'>
-                <ArrowBigRight className="text-blue-500" />
+                <ArrowBigRight className="text-blue-300" />
                 <label htmlFor="courseCategory" className="text-md hover:underline underline-offset-4">
                   Course Tags
                 </label>
@@ -59,8 +62,8 @@ export default function CouresUpload1() {
                     }
                   }
                 }}>
-                <span className='rounded-xl bg-blue-300 border-2 p-2'>Machine learning-ML</span>
-                <span className='rounded-xl bg-blue-300 border-2 p-2'>Adaptive AI</span>
+                <span className='rounded-xl bg-blue-100 border-2 p-2'>Machine learning-ML</span>
+                <span className='rounded-xl bg-blue-100 border-2 p-2'>Adaptive AI</span>
                 {/* custom tags */}
                 <div className="flex">
                   <input type="text" placeholder="custom tags" className=" text-center border-2 h-9 w-52 rounded-s-full border-gray-400" />
@@ -93,12 +96,14 @@ export default function CouresUpload1() {
         </div>
         <div className="flex flex-col gap-3 p-2">
           <span className='flex gap-2 items-center'>
-            <ArrowBigRight className="text-blue-500" />
+            <ArrowBigRight className="text-blue-300" />
             <label htmlFor="courseDescription" className="text-md hover:underline underline-offset-4">Course Description</label>
           </span>
           <textarea name="courseDescription" required id="courseDescription" placeholder="Enter course description" className="p-2 w-full h-40 border-2 border-gray-400 rounded-md" />
         </div>
-        <Button className='ml-2' type="submit">Save</Button>
+        <Button className='ml-2' type="submit">{
+          dataSaved ? "Data Saved" : "Save"
+        }</Button>
       </form>
     </div>
   )
