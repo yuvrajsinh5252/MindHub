@@ -10,6 +10,7 @@ import {
 import { useNavigate } from "@tanstack/react-router";
 import { ModeToggle } from "./theme/mode-toggle";
 import useAuth from "@/hook/useAuth";
+import { Button } from "./ui/button";
 
 export default function NavUser() {
     const {
@@ -64,12 +65,12 @@ export default function NavUser() {
                                 <Loader2 className="animate-spin lg:w-9 lg:h-9 w-8 h-8" />
                             </div>
                         ) : (
-                            <button
-                                className='text-center bg-black text-white rounded-md px-2 hover:bg-gray-600 transition-all duration-300 ease-in-out py-1'
+                            <Button
                                 onClick={() => navigation({ to: "/login" })}
+                                variant={"secondary"}
                             >
                                 Login
-                            </button>
+                            </Button>
                         )
                     )
                 }

@@ -1,12 +1,17 @@
-import { ArrowBigRight, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import React, { useState } from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { CourseContext } from "./CourseContext";
+import { Textarea } from "../ui/textarea";
+import { Label } from "../ui/label";
 
 export default function CouresUpload1() {
   const [courseImage, setCourseImage] = useState<File>();
   const tags: { [key: string]: boolean } = {};
+  const [customTags, setCustomTags] = useState<string[]>([
+    "Beginner", "Intermediate", "Advanced", "Professional", "Certified"
+  ]);
   const { setFormData, setDataSaved, dataSaved } = React.useContext(CourseContext);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -23,31 +28,19 @@ export default function CouresUpload1() {
   }
 
   return (
-    <div>
+    <div className="bg-background text-foreground">
       <form onSubmit={handleSubmit}>
         <div className='flex justify-between'>
           <div className='pt-2'>
-            <div className="flex flex-col gap-3 p-2">
-              <span className='flex gap-2 items-center'>
-                <ArrowBigRight className="text-blue-300" />
-                <label htmlFor="courseTitle" className="text-md hover:underline underline-offset-4">Course Title</label>
-              </span>
+            <Label className="flex flex-col gap-3 p-2">
+              Course Title
               <Input type="text" name="courseTitle" id="courseTitle" required placeholder="Enter course title" />
-            </div>
-            <div className="flex flex-col gap-3 p-2">
-              <span className='flex gap-2 items-center'>
-                <ArrowBigRight className="text-blue-300" />
-                <label htmlFor="courseCategory" className="text-md hover:underline underline-offset-4">Course Category</label>
-              </span>
+            </Label>
+            <Label className="flex flex-col gap-3 p-2">
+              Course Category
               <Input type="text" name="courseCategory" id="courseCategory" required placeholder="Enter course category" />
-            </div>
-            <div className='flex flex-col gap-3 p-2'>
-              <span className='flex gap-2 items-center'>
-                <ArrowBigRight className="text-blue-300" />
-                <label htmlFor="courseCategory" className="text-md hover:underline underline-offset-4">
-                  Course Tags
-                </label>
-              </span>
+            </Label>
+            <div className='flex flex-col gap-3'>
               <div
                 className="flex flex-wrap gap-3 p-2 text-sm"
                 onClick={(e) => {
@@ -62,27 +55,33 @@ export default function CouresUpload1() {
                     }
                   }
                 }}>
-                <span className='rounded-xl bg-blue-100 border-2 p-2'>Machine learning-ML</span>
-                <span className='rounded-xl bg-blue-100 border-2 p-2'>Adaptive AI</span>
                 {/* custom tags */}
+                {
+                  customTags.map((tag, index) => (
+                    <span key={index} className="border-2 border-border rounded-md p-1 cursor-pointer">
+                      {tag}
+                    </span>
+                  ))
+                }
                 <div className="flex">
-                  <input type="text" placeholder="custom tags" className=" text-center border-2 h-9 w-52 rounded-s-full border-gray-400" />
+                  <Input type="text" placeholder="custom tags" className=" text-center border-2 h-9 w-52 rounded-s-full border-border" />
                   <Plus
                     onClick={(e) => {
                       const target = e.target as HTMLInputElement;
                       const inputField = target.parentElement?.children[0] as HTMLInputElement;
 
                       if (inputField.value) tags[inputField.value] = true;
+                      setCustomTags([...customTags, inputField.value]);
                     }}
-                    className="text-black rounded-e-full border-e-2 border-y-2 cursor-pointer h-9 border-gray-400 p-2" size={45} />
+                    className="rounded-e-full border-e-2 border-y-2 cursor-pointer h-9 border-border p-2" size={45} />
                 </div>
               </div>
             </div>
           </div>
-          <div className="flex flex-col w-full border-2 rounded-md m-5 py-4 justify-center items-center gap-3 p-2">
-            <label htmlFor="courseImage" className="text-lg text-gray-600">
+          <div className="flex flex-col w-full border-border border-2 rounded-md m-5 py-4 justify-center items-center gap-3 p-2">
+            <Label htmlFor="courseImage" className="text-md">
               Upload Course Image
-            </label>
+            </Label>
             <img
               src={courseImage ? URL.createObjectURL(courseImage) : "https://via.placeholder.com/150"}
               alt="image" className="rounded-md" />
@@ -94,14 +93,11 @@ export default function CouresUpload1() {
             />
           </div>
         </div>
-        <div className="flex flex-col gap-3 p-2">
-          <span className='flex gap-2 items-center'>
-            <ArrowBigRight className="text-blue-300" />
-            <label htmlFor="courseDescription" className="text-md hover:underline underline-offset-4">Course Description</label>
-          </span>
-          <textarea name="courseDescription" required id="courseDescription" placeholder="Enter course description" className="p-2 w-full h-40 border-2 border-gray-400 rounded-md" />
-        </div>
-        <Button className='ml-2' type="submit">{
+        <Label className="flex flex-col gap-3 p-2">
+          Course Description
+          <Textarea name="courseDescription" required id="courseDescription" placeholder="Enter course description" rows={4} />
+        </Label>
+        <Button className='ml-2 mt-2' type="submit">{
           dataSaved ? "Data Saved" : "Save"
         }</Button>
       </form>

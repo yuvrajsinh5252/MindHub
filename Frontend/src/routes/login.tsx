@@ -6,7 +6,7 @@ import { GraduationCap } from 'lucide-react';
 const Login = () => {
   return (
     <div className="flex flex-col justify-center items-center h-screen">
-      <div className="border-2 flex flex-col gap-6 rounded-lg w-[400px] max-sm:w-72">
+      <div className="border-2 border-border flex flex-col gap-6 rounded-lg w-[400px] max-sm:w-72">
         <div className="flex flex-col justify-center items-center">
           <div className="flex justify-center p-2">
             <GraduationCap size={80} />

@@ -81,7 +81,7 @@ function creatorStudio() {
                   {
                     !next ? <></> :
                       uploadMutation.isPending ? (
-                        <div className="bg-blue-500 text-center text-white p-2 rounded-md m-2">Uploading...</div>
+                        <div className="bg-blue-400 text-center text-white p-2 rounded-md m-2">Uploading...</div>
                       ) : uploadMutation.isError ? (
                         <div className="bg-red-500 text-center text-white p-2 rounded-md m-2">Error uploading file</div>
                       ) : uploadMutation.isSuccess ? (
@@ -126,7 +126,7 @@ function creatorStudio() {
             </div>
           ) : (
             courseData && courseData.data.length > 0 ? (
-              <div className='h-[calc(100vh-12rem)] flex pt-4 pl-4 gap-10'>
+              <div className='h-[calc(100vh-12rem)] flex pt-4 pl-4 gap-5'>
                 {
                   courseData?.data.map((course: any, index: number) => (
                     <CourseBox key={index} course={course} index={index} />

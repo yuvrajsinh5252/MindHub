@@ -4,7 +4,7 @@ import { createRootRoute, Outlet } from '@tanstack/react-router'
 
 export const Route = createRootRoute({
   component: () => (
-    <div>
+    <div className='bg-background text-foreground'>
       <Navbar />
       <Toaster />
       <Outlet />

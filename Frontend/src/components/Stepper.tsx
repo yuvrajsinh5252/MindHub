@@ -86,7 +86,7 @@ const Stepper = ({ steps, currentStepNumber, setCurrentStep }: {
     return (
       <div key={index}
         className={index !== stepperSteps.length - 1 ? "w-full flex items-center" : "flex items-center"} >
-        <div className="relative flex flex-col items-center text-blue-600">
+        <div className="relative flex flex-col items-center">
           <div
             onClick={() => {
               const currentSteps = updateStep(index, stepperSteps)

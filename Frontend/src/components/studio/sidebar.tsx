@@ -16,7 +16,7 @@ export default function Sidebar({ open }: { open: boolean }) {
     }, [window.location.pathname]);
 
     return (
-        <div className={`h-full text-white w-0 flex justify-start flex-col overflow-x-hidden transition-all duration-300 ease-in-out overflow-y-scroll ${open ? "min-w-16" : `min-w-52`}`}>
+        <div className={`h-full text-white w-0 flex justify-start flex-col overflow-x-hidden transition-all duration-300 ease-in-out overflow-y-scroll gap-1 ${open ? "min-w-16" : `min-w-52`}`}>
             <div className={`flex flex-col font-semibold text-xl justify-start items-center py-5 ${open ? "" : "pb-14"}`}>
                 <GraduationCap size={open ? 38 : 60} />
                 <span className={`${open ? "hidden" : "visible"}`}>MindHub</span>
@@ -58,7 +58,7 @@ export default function Sidebar({ open }: { open: boolean }) {
             <div className={`flex flex-col gap-5 items-start h-full px-2 pb-10 ${open ? "pt-5" : "pt-14"}`}>
                 <button
                     onClick={() => navigate({ to: "/creator-dashboard" })}
-                    className={"flex gap-3 items-start justify-center bg-black rounded-lg p-2 w-full" +
+                    className={"flex gap-3 items-start justify-center rounded-lg p-2 w-full" +
                         (path === "/creator-dashboard" ? " bg-white text-black" : "")
                     }>
                     <LayoutDashboard />
@@ -66,7 +66,7 @@ export default function Sidebar({ open }: { open: boolean }) {
                 </button>
                 <button
                     onClick={() => navigate({ to: "/creator-studio" })}
-                    className={"flex gap-3 items-start justify-center bg-black rounded-lg p-2 w-full" +
+                    className={"flex gap-3 items-start justify-center rounded-lg p-2 w-full" +
                         (path === "/creator-studio" ? " bg-white text-black" : "")
                     }>
                     <MonitorPlay />
@@ -74,7 +74,7 @@ export default function Sidebar({ open }: { open: boolean }) {
                 </button>
                 <button
                     onClick={() => navigate({ to: "/creator-studio" })}
-                    className={"flex gap-3 items-start justify-center bg-black rounded-lg p-2 w-full" +
+                    className={"flex gap-3 items-start justify-center rounded-lg p-2 w-full" +
                         (path === "/Ccreator-studio" ? " bg-white text-black" : "")
                     }>
                     <Podcast />

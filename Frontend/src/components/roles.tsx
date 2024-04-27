@@ -1,6 +1,7 @@
 import useAuth from "@/hook/useAuth";
 import { useSetRole } from "@/querries/db";
 import { useState } from "react";
+import { Button } from "./ui/button";
 
 export default function Roles({ setCurrentStep, currentStep }: {
     setCurrentStep: any,
@@ -39,17 +40,14 @@ export default function Roles({ setCurrentStep, currentStep }: {
                 <p className="text-sm text-gray-500 ml-7 dark:text-slate-200">Create and share your own content</p>
             </div>
 
-            <button
+            <Button
                 onClick={() => {
-                    if (role) {
-                        mutateRole.mutate({ id: user.id, role: role });
-                    }
+                    if (role) mutateRole.mutate({ id: user.id, role: role });
                 }}
                 disabled={mutateRole.isPending}
-                className="m-auto border-2 font-[700] px-4 py-2 w-32 rounded-full hover:bg-blue-600 hover:text-white transition duration-500 ease-in-out bg-white text-black border-black hover:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-0"
             >
                 {mutateRole.isPending ? "Setting..." : "Set Role"}
-            </button>
+            </ Button>
         </div >
     )
 }

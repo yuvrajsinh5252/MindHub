@@ -18,7 +18,7 @@ function Browsecourses() {
             <Loader2 className='w-10 h-10 animate-spin' />
           </div>
         ) : (
-          <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
+          <div className='flex gap-5'>
             {data?.data.map((course: any, index: number) => (
               <CourseBox key={course.id} course={course} index={index} />
             ))}

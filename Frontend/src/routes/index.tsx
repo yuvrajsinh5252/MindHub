@@ -18,7 +18,9 @@ function HomePage() {
   return (
     <div className="flex py-40 items-center flex-col gap-16 h-[calc(100vh-4rem)]">
       <div>
-        <header className="text-lg bg-gray-600 p-1 px-5 rounded-full text-white shadow-xl">MindHub</header>
+        <header className="
+          text-lg p-1 px-5 rounded-full text-white shadow-xl
+        ">MindHub</header>
       </div>
       <div className="text-center flex flex-col gap-9">
         <div className="text-3xl max-sm:text-xl font-poppins font-semibold">
