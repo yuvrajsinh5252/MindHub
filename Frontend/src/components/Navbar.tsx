@@ -16,7 +16,7 @@ export default function Navbar() {
             <div className="w-full h-16 shadow-md dark:border-b-[1px]">
                 <div>
                     <div className="flex justify-around max-sm:justify-between max-sm:mx-5 items-center h-16">
-                        <h1 className="font-bold text-2xl max-sm:text-[20px]">
+                        <h1 className="text-2xl max-sm:text-[20px] text-[#8b71b6]">
                             MindHub
                         </h1>
                         <div className="w-[400px] max-sm:w-36 lg:divide-x-2 cursor-pointer flex justify-center items-center">
