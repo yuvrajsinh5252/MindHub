@@ -68,6 +68,9 @@ export default function useAuth() {
         await axios.post("/db/createUser", {
           id: user.id,
           username: user.login,
+          Headers: {
+            Authorization: "Bearer " + access_token,
+          },
         });
 
         setIsAuthenticated(true);

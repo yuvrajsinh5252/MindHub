@@ -1,8 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { ArrowRight } from "lucide-react";
-import { buttonVariants } from "../components/ui/button";
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion"
+import { LampDemo } from '@/components/ui/lamp';
 
 export const Route = createFileRoute('/')({
   component: HomePage,
@@ -10,7 +8,6 @@ export const Route = createFileRoute('/')({
 
 function HomePage() {
   const [authorized, setAuthorized] = useState("./login");
-  const systemTheme = localStorage.getItem("vite-ui-theme");
 
   useEffect(() => {
     const accessToken = localStorage.getItem("access_token");
@@ -18,83 +15,8 @@ function HomePage() {
   }, []);
 
   return (
-    <div className="flex py-40 items-center dark:bg-[#001220] flex-col gap-16 h-[calc(100vh-4rem)]">
-      <motion.div
-        initial={{
-          opacity: 0,
-          translateY: -100,
-          type: "spring",
-        }}
-        animate={{
-          type: "spring",
-          opacity: 1,
-          translateY: 0,
-        }}
-        transition={{ duration: 0.2 }}
-        className="flex items-center gap-2 z-10"
-      >
-        <motion.header
-          animate={{
-            borderBottomWidth: "2px",
-            borderBottomColor: [
-              "#6395f8",
-              "#7e3af2",
-              "#6395f8",
-            ],
-          }}
-          transition={{ duration: 2, loop: Infinity, ease: "easeInOut" }}
-          className="text-5xl font-semibold p-10 px-10 rounded-full shadow-lg
-          bg-gradient-to-r from-[#6395f8] to-[#7e3af2] text-transparent bg-clip-text"
-        >MindHub</motion.header>
-      </motion.div>
-      <div className="text-center flex flex-col gap-9 z-10">
-        <motion.div
-          initial={{
-            opacity: 0,
-            type: "tween",
-            scale: 0,
-          }}
-          animate={{
-            opacity: 1,
-            scale: 1,
-          }}
-          transition={{ delay: 0.2 }}
-          className="text-3xl max-sm:text-xl font-poppins font-semibold"
-        >
-          <p className="pb-1">
-            The best place to feel like professional,
-          </p>
-          <p>
-            while learning and growing.
-          </p>
-        </motion.div>
-        <div>
-          <motion.button
-            className={`${buttonVariants({
-              variant: "default",
-            })}`}
-            onClick={() => window.location.assign(authorized)}
-          >
-            <p className="text-base">Get Started</p>
-            <ArrowRight className="w-6 h-6" />
-          </motion.button>
-        </div>
-      </div>
-      <motion.img
-        initial={{
-          opacity: 0,
-          translateY: 100,
-        }}
-        animate={{
-          opacity: 1,
-          translateY: 0,
-        }}
-        transition={{ duration: 0.2 }}
-        {
-        ...systemTheme === "dark" ? { src: "/public/waves-black.svg" } : { src: "/public/waves-white.svg" }
-        }
-        className='fixed bottom-0 w-full object-cover h-[700px] pointer-events-none'
-      />
-    </div >
+    <div>
+      <LampDemo authorized={authorized} />
+    </div>
   )
 }

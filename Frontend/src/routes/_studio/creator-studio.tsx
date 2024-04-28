@@ -4,7 +4,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { uploadCourse, useCreatorCourse, useGithubUser } from '@/querries/db';
 import { useMutation } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router'
-import { Loader2, X } from 'lucide-react';
+import { Loader2, PlusIcon, X } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import CouresUpload1 from '@/components/courses/CourseUpload-1';
 import CouresUpload2 from '@/components/courses/CourseUpload-2';
@@ -65,7 +65,8 @@ function creatorStudio() {
         <div className='my-auto'>
           <Button
             onClick={() => setOpen(true)}
-            variant="outline">
+            variant="secondary">
+            <PlusIcon className="h-6 w-6 mr-2" />
             Create Courses
           </Button>
           <Dialog open={open}>

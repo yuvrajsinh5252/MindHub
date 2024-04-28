@@ -13,7 +13,7 @@ export default function Navbar() {
 
     return (
         <nav>
-            <div className="w-full h-16 shadow-md dark:bg-[#001220] z-10">
+            <div className="w-full h-16 shadow-md dark:bg-[#020617] z-10">
                 <div>
                     <div className="flex justify-around max-sm:justify-between max-sm:mx-5 items-center h-16">
                         <h1 className="text-2xl max-sm:text-[20px] font-semibold text-[#59aada]">

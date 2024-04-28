@@ -15,11 +15,13 @@
     "drizzle-orm": "^0.30.5",
     "elysia": "latest",
     "pg": "^8.11.3",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "@types/uuid": "^9.0.8",
     "bun-types": "latest",
-    "drizzle-kit": "^0.20.14",
+    "drizzle-kit": "^0.20.17",
     "typescript": "^5.4.3"
   },
   "module": "src/index.ts"
