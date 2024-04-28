@@ -10,6 +10,7 @@ export const Route = createFileRoute('/')({
 
 function HomePage() {
   const [authorized, setAuthorized] = useState("./login");
+  const systemTheme = localStorage.getItem("vite-ui-theme");
 
   useEffect(() => {
     const accessToken = localStorage.getItem("access_token");
@@ -17,7 +18,7 @@ function HomePage() {
   }, []);
 
   return (
-    <div className="flex py-40 items-center flex-col gap-16 h-[calc(100vh-4rem)]">
+    <div className="flex py-40 items-center dark:bg-[#001220] flex-col gap-16 h-[calc(100vh-4rem)]">
       <motion.div
         initial={{
           opacity: 0,
@@ -30,7 +31,7 @@ function HomePage() {
           translateY: 0,
         }}
         transition={{ duration: 0.2 }}
-        className="flex items-center gap-2"
+        className="flex items-center gap-2 z-10"
       >
         <motion.header
           animate={{
@@ -46,7 +47,7 @@ function HomePage() {
           bg-gradient-to-r from-[#6395f8] to-[#7e3af2] text-transparent bg-clip-text"
         >MindHub</motion.header>
       </motion.div>
-      <div className="text-center flex flex-col gap-9">
+      <div className="text-center flex flex-col gap-9 z-10">
         <motion.div
           initial={{
             opacity: 0,
@@ -79,6 +80,21 @@ function HomePage() {
           </motion.button>
         </div>
       </div>
+      <motion.img
+        initial={{
+          opacity: 0,
+          translateY: 100,
+        }}
+        animate={{
+          opacity: 1,
+          translateY: 0,
+        }}
+        transition={{ duration: 0.2 }}
+        {
+        ...systemTheme === "dark" ? { src: "/public/waves-black.svg" } : { src: "/public/waves-white.svg" }
+        }
+        className='fixed bottom-0 w-full object-cover h-[700px] pointer-events-none'
+      />
     </div >
   )
 }

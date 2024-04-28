@@ -13,10 +13,10 @@ export default function Navbar() {
 
     return (
         <nav>
-            <div className="w-full h-16 shadow-md dark:border-b-[1px]">
+            <div className="w-full h-16 shadow-md dark:bg-[#001220] z-10">
                 <div>
                     <div className="flex justify-around max-sm:justify-between max-sm:mx-5 items-center h-16">
-                        <h1 className="text-2xl max-sm:text-[20px] text-[#8b71b6]">
+                        <h1 className="text-2xl max-sm:text-[20px] font-semibold text-[#59aada]">
                             MindHub
                         </h1>
                         <div className="w-[400px] max-sm:w-36 lg:divide-x-2 cursor-pointer flex justify-center items-center">

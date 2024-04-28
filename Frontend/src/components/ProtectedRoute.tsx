@@ -16,7 +16,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     return (
       <div className="flex justify-center items-center h-screen">
         <div className="flex flex-col justify-center items-center gap-5">
-          <div className="text-destructive-foreground">You are not authorized to access this page</div>
+          <div className="text-destructive">You are not authorized to access this page</div>
           {
             role?.data === "creator" ? (
               <Button
