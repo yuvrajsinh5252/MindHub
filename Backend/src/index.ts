@@ -14,7 +14,7 @@ import { middleware } from "../middleware/middleware";
 const app = new Elysia()
   .use(cors())
   .onBeforeHandle(({ request, set }) => middleware(request, set))
-  // .onRequest(({ request, set }) => middleware(request, set))
+
   .group("/auth", (group) => {
     return group
       .get("/getUser", ({ request }) => githubAuth(request.headers))
