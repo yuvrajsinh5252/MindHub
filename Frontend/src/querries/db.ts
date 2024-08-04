@@ -42,7 +42,7 @@ export async function getUserData() {
 
 export async function getRole(id: number) {
   return axios
-    .post("/db/getRole", {
+    .post("/db/getRole?access_token=" + localStorage.getItem("access_token"), {
       id: id,
       headers: {
         Authorization: "Bearer " + localStorage.getItem("access_token"),
@@ -54,23 +54,26 @@ export async function getRole(id: number) {
 }
 
 export async function setRole(id: number, role: string) {
-  return axios.post("/db/setRole", {
-    id: id,
-    role: role,
-    headers: {
-      Authorization: "Bearer " + localStorage.getItem("access_token"),
-    },
-  });
+  return axios.post(
+    "/db/setRole?access_token=" + localStorage.getItem("access_token"),
+    {
+      id: id,
+      role: role,
+    }
+  );
 }
 
 export async function uploadCourse(uploadData: FormData) {
   try {
-    const data = await axios.post("/db/uploadCourse", uploadData, {
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("access_token"),
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-    });
+    const data = await axios.post(
+      "/db/uploadCourse?access_token=" + localStorage.getItem("access_token"),
+      uploadData,
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      }
+    );
 
     console.log(data);
   } catch (error) {
@@ -79,18 +82,16 @@ export async function uploadCourse(uploadData: FormData) {
 }
 
 export async function getCreatorCourse(id: number) {
-  return axios.post("/db/getCreatorCourse", {
-    id: id,
-    headers: {
-      Authorization: "Bearer " + localStorage.getItem("access_token"),
-    },
-  });
+  return await axios.post(
+    "/db/getCreatorCourse?access_token=" + localStorage.getItem("access_token"),
+    {
+      id: id,
+    }
+  );
 }
 
 export async function getViewerCourse() {
-  return axios.post("/db/getViewerCourse", {
-    headers: {
-      Authorization: "Bearer " + localStorage.getItem("access_token"),
-    },
-  });
+  return axios.post(
+    "/db/getViewerCourse?access_token=" + localStorage.getItem("access_token")
+  );
 }

@@ -57,7 +57,7 @@ function creatorStudio() {
   }, [uploadMutation.isSuccess]);
 
   return (
-    <div className='divide-y-2'>
+    <div className='divide-y-2 dark:bg-secondary'>
       <div className="flex justify-between p-2 pr-20 h-24 mb-2 font-[600]">
         <div className="text-3xl my-auto font-semibold space-y-3">
           Your Courses
@@ -65,7 +65,7 @@ function creatorStudio() {
         <div className='my-auto'>
           <Button
             onClick={() => setOpen(true)}
-            variant="secondary">
+            variant="outline">
             <PlusIcon className="h-6 w-6 mr-2" />
             Create Courses
           </Button>
