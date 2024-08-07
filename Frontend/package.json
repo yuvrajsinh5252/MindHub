@@ -27,6 +27,7 @@
     "lucide-react": "^0.363.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-loading-skeleton": "^3.4.0",
     "react-query-kit": "^3.2.1",
     "shadcn-ui": "^0.8.0",
     "tailwind-merge": "^2.2.2",

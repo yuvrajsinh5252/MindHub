@@ -14,13 +14,13 @@ function LayoutComponent() {
 
   return (
     <ProtectedRoute>
-      <div className="w-full h-screen bg-neutral-900 flex items-end justify-end overflow-hidden">
+      <div className="w-full h-screen bg-accent dark:bg-background text-foreground flex items-end justify-end overflow-hidden">
         <Sidebar open={open} />
         <div className="h-full w-full px-2">
           <TopBar />
 
           {/* page content starts */}
-          <div className="bg-white no-scrollbar dark:bg-neutral-700 dark:text-white rounded-xl w-full p-4 h-[calc(100%-4rem)] overflow-y-scroll scroll-smooth relative">
+          <div className="no-scrollbar bg-background dark:bg-secondary rounded-xl w-full p-4 h-[calc(100%-4rem)] overflow-y-scroll scroll-smooth relative">
             <button
               onClick={() => {
                 setOpen(!open);

@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Button } from "../ui/button";
+import { buttonVariants } from "../ui/button";
 
 interface CourseProps {
   course: {
@@ -25,12 +25,17 @@ export default function CourseBox({ course, index }: CourseProps) {
               <div className="text-sm">{course.category}</div>
             </div>
             <div>
-              <Button onClick={() => {
-                Link({
-                  // to: `/video${course.file_id}`,
-                  replace: false
-                })
-              }}>View</Button>
+              <Link
+                to={`/courses/$videoId`}
+                params={{ videoId: course.file_id.toString() }}
+                replace={false}
+                className={buttonVariants({
+                  variant: "secondary",
+                  size: "sm",
+                })}
+              >
+                View
+              </Link>
             </div>
           </div>
         </div>

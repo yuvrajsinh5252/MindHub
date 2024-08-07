@@ -3,6 +3,7 @@ import { Elysia } from "elysia";
 import { getAccessToken, githubAuth } from "./routes/auth";
 import {
   createUser,
+  getCourseFile,
   getCreatorCourse,
   getRole,
   getViewerCourse,
@@ -28,7 +29,8 @@ const app = new Elysia()
       .post("/getRole", ({ body }) => getRole(body))
       .post("/uploadCourse", ({ set, body }) => uploadCourse(set, body))
       .post("/getCreatorCourse", ({ body }) => getCreatorCourse(body))
-      .post("/getViewerCourse", () => getViewerCourse());
+      .post("/getViewerCourse", () => getViewerCourse())
+      .post("/getCourseFile", ({ body }) => getCourseFile(body));
   })
 
   .listen(3000);

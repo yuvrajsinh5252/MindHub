@@ -19,8 +19,9 @@ import { Route as IndexImport } from './routes/index'
 import { Route as UserDashboardImport } from './routes/_user/dashboard'
 import { Route as UserMycoursesImport } from './routes/_user/Mycourses'
 import { Route as UserBrowsecoursesImport } from './routes/_user/Browsecourses'
-import { Route as StudioCreatorStudioImport } from './routes/_studio/creator-studio'
 import { Route as StudioCreatorDashboardImport } from './routes/_studio/creator-dashboard'
+import { Route as StudioCoursesIndexImport } from './routes/_studio/courses_/index'
+import { Route as StudioCoursesVideoIdImport } from './routes/_studio/courses_/$videoId'
 
 // Create/Update Routes
 
@@ -64,13 +65,18 @@ const UserBrowsecoursesRoute = UserBrowsecoursesImport.update({
   getParentRoute: () => UserRoute,
 } as any)
 
-const StudioCreatorStudioRoute = StudioCreatorStudioImport.update({
-  path: '/creator-studio',
+const StudioCreatorDashboardRoute = StudioCreatorDashboardImport.update({
+  path: '/creator-dashboard',
   getParentRoute: () => StudioRoute,
 } as any)
 
-const StudioCreatorDashboardRoute = StudioCreatorDashboardImport.update({
-  path: '/creator-dashboard',
+const StudioCoursesIndexRoute = StudioCoursesIndexImport.update({
+  path: '/courses/',
+  getParentRoute: () => StudioRoute,
+} as any)
+
+const StudioCoursesVideoIdRoute = StudioCoursesVideoIdImport.update({
+  path: '/courses/$videoId',
   getParentRoute: () => StudioRoute,
 } as any)
 
@@ -102,10 +108,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StudioCreatorDashboardImport
       parentRoute: typeof StudioImport
     }
-    '/_studio/creator-studio': {
-      preLoaderRoute: typeof StudioCreatorStudioImport
-      parentRoute: typeof StudioImport
-    }
     '/_user/Browsecourses': {
       preLoaderRoute: typeof UserBrowsecoursesImport
       parentRoute: typeof UserImport
@@ -118,6 +120,14 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserDashboardImport
       parentRoute: typeof UserImport
     }
+    '/_studio/courses/$videoId': {
+      preLoaderRoute: typeof StudioCoursesVideoIdImport
+      parentRoute: typeof StudioImport
+    }
+    '/_studio/courses/': {
+      preLoaderRoute: typeof StudioCoursesIndexImport
+      parentRoute: typeof StudioImport
+    }
   }
 }
 
@@ -127,7 +137,8 @@ export const routeTree = rootRoute.addChildren([
   IndexRoute,
   StudioRoute.addChildren([
     StudioCreatorDashboardRoute,
-    StudioCreatorStudioRoute,
+    StudioCoursesVideoIdRoute,
+    StudioCoursesIndexRoute,
   ]),
   UserRoute.addChildren([
     UserBrowsecoursesRoute,

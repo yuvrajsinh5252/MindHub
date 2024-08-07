@@ -32,6 +32,11 @@ export const useViewerCourse = createQuery<data, void>({
   fetcher: getViewerCourse,
 });
 
+export const useFileViewer = createQuery<data, { id: string }>({
+  queryKey: ["fileViewer"],
+  fetcher: (variables: { id: string }) => getCourseFile(variables.id),
+});
+
 export async function getUserData() {
   return axios.get("/auth/getUser", {
     headers: {
@@ -93,5 +98,14 @@ export async function getCreatorCourse(id: number) {
 export async function getViewerCourse() {
   return axios.post(
     "/db/getViewerCourse?access_token=" + localStorage.getItem("access_token")
+  );
+}
+
+export async function getCourseFile(id: string) {
+  return axios.post(
+    "/db/getCourseFile?access_token=" + localStorage.getItem("access_token"),
+    {
+      id: id,
+    }
   );
 }

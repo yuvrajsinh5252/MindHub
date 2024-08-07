@@ -154,6 +154,7 @@ export const uploadCourse = async (set: any, body: any) => {
 
   return "file uploaded";
 };
+
 export const getCreatorCourse = async (body: any) => {
   const creatorId = body.id;
 
@@ -177,5 +178,23 @@ export const getViewerCourse = async () => {
   } catch (error) {
     console.log(error);
     return "Something went wrong while fetching viewer courses";
+  }
+};
+
+export const getCourseFile = async (body: any) => {
+  const courseId = body.id;
+
+  console.log(courseId);
+
+  try {
+    const courseFile = await db
+      .select()
+      .from(File)
+      .where(eq(File.id, courseId));
+
+    return courseFile;
+  } catch (error) {
+    console.log(error);
+    return "Something went wrong while fetching course file";
   }
 };

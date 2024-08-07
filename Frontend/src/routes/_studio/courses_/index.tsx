@@ -11,7 +11,7 @@ import CouresUpload2 from '@/components/courses/CourseUpload-2';
 import { CourseContext } from '@/components/courses/CourseContext';
 import CourseBox from '@/components/courses/CourseBox';
 
-export const Route = createFileRoute('/_studio/creator-studio')({
+export const Route = createFileRoute('/_studio/courses/')({
   component: creatorStudio,
 })
 

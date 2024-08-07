@@ -13,7 +13,7 @@ export default function Sidebar({ open }: { open: boolean }) {
     }, [window.location.pathname]);
 
     return (
-        <div className={`h-full text-white w-0 flex justify-start flex-col overflow-x-hidden transition-all duration-300 ease-in-out overflow-y-scroll divide-y-2 gap-3 ${open ? "min-w-16" : `min-w-52`}`}>
+        <div className={`h-full w-0 flex justify-start flex-col overflow-x-hidden transition-all duration-300 ease-in-out overflow-y-scroll divide-y-2 gap-3 ${open ? "min-w-16" : `min-w-52`}`}>
             <div className={`flex flex-col font-semibold text-xl justify-start items-center py-5 ${open ? "" : "pb-14"}`}>
                 <GraduationCap size={open ? 38 : 60} />
                 <span className={`${open ? "hidden" : "visible"}`}>MindHub</span>
