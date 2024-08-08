@@ -1,16 +1,10 @@
 import cors from "@elysiajs/cors";
 import { Elysia } from "elysia";
 import { getAccessToken, githubAuth } from "./routes/auth";
-import {
-  createUser,
-  getCourseFile,
-  getCreatorCourse,
-  getRole,
-  getViewerCourse,
-  setRole,
-  uploadCourse,
-} from "./routes/neonDB";
+import { createUser, getCourseFile, getRole, setRole } from "./routes/neonDB";
 import { middleware } from "../middleware/middleware";
+import { getCreatorCourse, uploadCourse } from "./routes/studio";
+import { getViewerCourse } from "./routes/user";
 
 const app = new Elysia()
   .use(cors())
