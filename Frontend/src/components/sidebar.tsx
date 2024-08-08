@@ -28,7 +28,7 @@ export default function Sidebar({ open }: { open: boolean }) {
                     <span className={`${open ? "hidden" : "visible"}`}>Dashboard</span>
                 </button>
                 <button
-                    onClick={() => navigate({ to: "/Browsecourses" })}
+                    onClick={() => navigate({ to: "/browsecourse" })}
                     className={"flex gap-3 items-start justify-center rounded-lg p-2 w-full" +
                         (path === "/Browsecourses" ? " bg-white text-black" : "")
                     }>

@@ -18,8 +18,8 @@ import { Route as StudioImport } from './routes/_studio'
 import { Route as IndexImport } from './routes/index'
 import { Route as UserDashboardImport } from './routes/_user/dashboard'
 import { Route as UserMycoursesImport } from './routes/_user/Mycourses'
-import { Route as UserBrowsecoursesImport } from './routes/_user/Browsecourses'
 import { Route as StudioCreatorDashboardImport } from './routes/_studio/creator-dashboard'
+import { Route as UserBrowsecourseIndexImport } from './routes/_user/browsecourse_/index'
 import { Route as StudioCoursesIndexImport } from './routes/_studio/courses_/index'
 import { Route as StudioCoursesVideoIdImport } from './routes/_studio/courses_/$videoId'
 
@@ -60,14 +60,14 @@ const UserMycoursesRoute = UserMycoursesImport.update({
   getParentRoute: () => UserRoute,
 } as any)
 
-const UserBrowsecoursesRoute = UserBrowsecoursesImport.update({
-  path: '/Browsecourses',
-  getParentRoute: () => UserRoute,
-} as any)
-
 const StudioCreatorDashboardRoute = StudioCreatorDashboardImport.update({
   path: '/creator-dashboard',
   getParentRoute: () => StudioRoute,
+} as any)
+
+const UserBrowsecourseIndexRoute = UserBrowsecourseIndexImport.update({
+  path: '/browsecourse/',
+  getParentRoute: () => UserRoute,
 } as any)
 
 const StudioCoursesIndexRoute = StudioCoursesIndexImport.update({
@@ -108,10 +108,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StudioCreatorDashboardImport
       parentRoute: typeof StudioImport
     }
-    '/_user/Browsecourses': {
-      preLoaderRoute: typeof UserBrowsecoursesImport
-      parentRoute: typeof UserImport
-    }
     '/_user/Mycourses': {
       preLoaderRoute: typeof UserMycoursesImport
       parentRoute: typeof UserImport
@@ -128,6 +124,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StudioCoursesIndexImport
       parentRoute: typeof StudioImport
     }
+    '/_user/browsecourse/': {
+      preLoaderRoute: typeof UserBrowsecourseIndexImport
+      parentRoute: typeof UserImport
+    }
   }
 }
 
@@ -141,9 +141,9 @@ export const routeTree = rootRoute.addChildren([
     StudioCoursesIndexRoute,
   ]),
   UserRoute.addChildren([
-    UserBrowsecoursesRoute,
     UserMycoursesRoute,
     UserDashboardRoute,
+    UserBrowsecourseIndexRoute,
   ]),
   LoginRoute,
   OnboardingRoute,

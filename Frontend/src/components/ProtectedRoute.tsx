@@ -9,8 +9,8 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { data: role, isLoading } = useUserRole({ variables: { id: user?.id }, enabled: !!user?.id });
 
   const path = window.location.pathname;
-  const viewerPath = ["/dashboard", "/Browsecourses", "/Mycourses"];
-  const studioPath = ["/creator-studio"];
+  const viewerPath = ["/dashboard", "/browsecourses", "/Mycourses"];
+  const studioPath = ["/courses"];
 
   if ((viewerPath.includes(path) && role?.data === "creator") || (studioPath.includes(path) && role?.data === "viewer")) {
     return (
@@ -24,7 +24,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
                   size: "sm",
                   variant: "secondary",
                 })}
-                onClick={() => navigate({ to: "/creator-studio" })}> Go to creator studio </Button>
+                onClick={() => navigate({ to: "/courses" })}> Go to creator studio </Button>
             ) : (
               <Button
                 className={buttonVariants({

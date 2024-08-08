@@ -65,26 +65,26 @@ export default function Sidebar({ open }: { open: boolean }) {
                     <span className={`${open ? "hidden" : "visible"}`}>Dashboard</span>
                 </button>
                 <button
-                    onClick={() => navigate({ to: "/creator-studio" })}
+                    onClick={() => navigate({ to: "/courses" })}
                     className={"flex gap-3 items-start justify-center rounded-lg p-2 w-full" +
-                        (path === "/creator-studio" ? " bg-white text-black" : "")
+                        (path === "/courses" ? " bg-white text-black" : "")
                     }>
                     <MonitorPlay />
                     <span className={`${open ? "hidden" : "visible"}`}>Studio</span>
                 </button>
                 <button
-                    onClick={() => navigate({ to: "/creator-studio" })}
+                    onClick={() => navigate({ to: "/courses" })}
                     className={"flex gap-3 items-start justify-center rounded-lg p-2 w-full" +
-                        (path === "/Ccreator-studio" ? " bg-white text-black" : "")
+                        (path === "/Go-live" ? " bg-white text-black" : "")
                     }>
                     <Podcast />
                     <span className={`${open ? "hidden" : "visible"}`}>Go Live</span>
                 </button>
             </div>
 
-            <footer onClick={handleLogout} className="w-full flex gap-3 cursor-pointer p-3 m-auto border-t-2">
-                <LogOut />
+            <footer onClick={handleLogout} className="w-full flex gap-3 cursor-pointer justify-between p-3 m-auto border-t-2">
                 <span className={`${open ? "hidden" : "visible"}`}>Logout</span>
+                <LogOut />
             </footer>
         </div >
     );

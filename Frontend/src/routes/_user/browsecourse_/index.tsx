@@ -3,7 +3,7 @@ import { useViewerCourse } from '@/querries/db';
 import { createFileRoute } from '@tanstack/react-router'
 import { Loader2 } from 'lucide-react';
 
-export const Route = createFileRoute('/_user/Browsecourses')({
+export const Route = createFileRoute('/_user/browsecourse/')({
   component: Browsecourses,
 })
 
