@@ -9,37 +9,37 @@ interface CourseProps {
     file_id: number;
     description: string;
     category: string;
-  }
+  };
   index: number;
 }
 
 export default function CourseBox({ course, index }: CourseProps) {
   return (
-    <div key={index}>
+    <div key={index} className="mb-4">
       <div className="hover:shadow-xl bg-card transition-shadow duration-200 rounded-md w-[350px]">
         <div className="flex flex-col">
-          <img src={course ? course.courseUrl : "/course.png"} alt="course" className="rounded-t-md aspect-w-16 aspect-h-9 h-[200px]" />
-          <div className="flex items-center justify-between p-2 border-border border-2 rounded-b-md">
+          <img
+            src={course.courseUrl || "/course.png"}
+            alt="course"
+            className="rounded-t-md aspect-w-16 aspect-h-9 h-[200px]"
+          />
+          <div className="flex items-center justify-between p-4 bg-card rounded-l-md rounded-r-md">
             <div>
               <div className="text-lg font-semibold">{course.name}</div>
-              <div className="text-sm">{course.category}</div>
+              <div className="text-sm text-gray-400 mb-2">{course.category}</div>
             </div>
-            <div>
-              <Link
-                to={`/courses/$videoId`}
-                params={{ videoId: course.file_id.toString() }}
-                replace={false}
-                className={buttonVariants({
-                  variant: "secondary",
-                  size: "sm",
-                })}
-              >
-                View
-              </Link>
-            </div>
+            <Link
+              to={`/browsecourse/${course.file_id}`}
+              className={buttonVariants({
+                variant: "secondary",
+                size: "sm",
+              })}
+            >
+              View
+            </Link>
           </div>
         </div>
       </div>
-    </div >
-  )
+    </div>
+  );
 }

@@ -10,9 +10,13 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 
   const path = window.location.pathname;
   const viewerPath = ["/dashboard", "/browsecourses", "/Mycourses"];
-  const studioPath = ["/courses"];
+  const studioPath = ["/courses", "/creator-dashboard"];
 
-  if ((viewerPath.includes(path) && role?.data === "creator") || (studioPath.includes(path) && role?.data === "viewer")) {
+  if (
+    (viewerPath.some(viewerPath => path.startsWith(viewerPath)) && role?.data === "creator")
+    ||
+    (studioPath.some(studioPath => path.startsWith(studioPath)) && role?.data === "viewer")
+  ) {
     return (
       <div className="flex justify-center items-center h-screen">
         <div className="flex flex-col justify-center items-center gap-5">

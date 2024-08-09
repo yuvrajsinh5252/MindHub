@@ -62,7 +62,7 @@ export default function Sidebar({ open }: { open: boolean }) {
                         (path === "/creator-dashboard" ? " bg-white text-black" : "")
                     }>
                     <LayoutDashboard />
-                    <span className={`${open ? "hidden" : "visible"}`}>Dashboard</span>
+                    <span className={`${open ? "hidden" : "visible"} w-24`}>Dashboard</span>
                 </button>
                 <button
                     onClick={() => navigate({ to: "/courses" })}
@@ -70,7 +70,7 @@ export default function Sidebar({ open }: { open: boolean }) {
                         (path === "/courses" ? " bg-white text-black" : "")
                     }>
                     <MonitorPlay />
-                    <span className={`${open ? "hidden" : "visible"}`}>Studio</span>
+                    <span className={`${open ? "hidden" : "visible"} w-24`}>Studio</span>
                 </button>
                 <button
                     onClick={() => navigate({ to: "/courses" })}
@@ -78,7 +78,7 @@ export default function Sidebar({ open }: { open: boolean }) {
                         (path === "/Go-live" ? " bg-white text-black" : "")
                     }>
                     <Podcast />
-                    <span className={`${open ? "hidden" : "visible"}`}>Go Live</span>
+                    <span className={`${open ? "hidden" : "visible"} w-24`}>Go Live</span>
                 </button>
             </div>
 

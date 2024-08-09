@@ -1,35 +1,19 @@
-import { Popover, PopoverContent, PopoverTrigger } from "@radix-ui/react-popover";
 import { GraduationCap, Search } from "lucide-react";
 import NavUser from "./navUser";
+import { Input } from "./ui/input";
 
 export default function TopBar() {
   return (
     <div className="flex justify-start items-center py-2 gap-2">
       <GraduationCap className="sm:hidden h-10 w-16" />
-      <Popover>
-        <div className="w-full flex gap-2">
-          <input
-            type="text"
-            className="dark:text-black max-sm:hidden focus:outline-none w-2/6 min-w-40 h-10 rounded-md p-2"
-            placeholder="Search"
-          />
-          <PopoverTrigger>
-            <Search className="lg:hidden" size={24} />
-          </PopoverTrigger>
-          <div className="lg:border-2 px-2 border-zinc-500 rounded-lg">
-            <span className="m-1 lg:block hidden cursor-pointer">Search</span>
-          </div>
-        </div>
-
-        <PopoverContent align="end" sideOffset={10}>
-          <input
-            type="text"
-            className="text-black focus:outline-none w-2/6 max-sm:h-9 rounded-md p-2"
-            placeholder="Search"
-          />
-        </PopoverContent>
-      </Popover>
-
+      <div className="w-full relative flex justify-start ">
+        <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+        <Input
+          type="search"
+          placeholder="Search..."
+          className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"
+        />
+      </div>
       <div className="text-black px-2 w-48">
         <NavUser />
       </div>

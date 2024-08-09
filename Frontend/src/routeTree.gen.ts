@@ -21,6 +21,7 @@ import { Route as UserMycoursesImport } from './routes/_user/Mycourses'
 import { Route as StudioCreatorDashboardImport } from './routes/_studio/creator-dashboard'
 import { Route as UserBrowsecourseIndexImport } from './routes/_user/browsecourse_/index'
 import { Route as StudioCoursesIndexImport } from './routes/_studio/courses_/index'
+import { Route as UserBrowsecourseCourseIdImport } from './routes/_user/browsecourse_/$courseId'
 import { Route as StudioCoursesVideoIdImport } from './routes/_studio/courses_/$videoId'
 
 // Create/Update Routes
@@ -75,6 +76,11 @@ const StudioCoursesIndexRoute = StudioCoursesIndexImport.update({
   getParentRoute: () => StudioRoute,
 } as any)
 
+const UserBrowsecourseCourseIdRoute = UserBrowsecourseCourseIdImport.update({
+  path: '/browsecourse/$courseId',
+  getParentRoute: () => UserRoute,
+} as any)
+
 const StudioCoursesVideoIdRoute = StudioCoursesVideoIdImport.update({
   path: '/courses/$videoId',
   getParentRoute: () => StudioRoute,
@@ -120,6 +126,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StudioCoursesVideoIdImport
       parentRoute: typeof StudioImport
     }
+    '/_user/browsecourse/$courseId': {
+      preLoaderRoute: typeof UserBrowsecourseCourseIdImport
+      parentRoute: typeof UserImport
+    }
     '/_studio/courses/': {
       preLoaderRoute: typeof StudioCoursesIndexImport
       parentRoute: typeof StudioImport
@@ -143,6 +153,7 @@ export const routeTree = rootRoute.addChildren([
   UserRoute.addChildren([
     UserMycoursesRoute,
     UserDashboardRoute,
+    UserBrowsecourseCourseIdRoute,
     UserBrowsecourseIndexRoute,
   ]),
   LoginRoute,

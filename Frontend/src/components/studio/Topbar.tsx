@@ -2,19 +2,20 @@ import { Bell, Search } from "lucide-react";
 import { ModeToggle } from "../theme/mode-toggle";
 import { Skeleton } from "../ui/skeleton";
 import { useGithubUser } from "@/querries/db";
+import { Input } from "../ui/input";
 
 export default function TopBar() {
   const { data: user } = useGithubUser();
 
   return (
     <div className="flex items-center py-2 pr-2 gap-2">
-      <div className="w-full flex justify-start">
-        <input
-          type="text"
-          className="focus:outline-none w-5/12 min-w-40 h-10 rounded-s-md text-background p-2"
+      <div className="w-full relative flex justify-start ">
+        <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+        <Input
+          type="search"
           placeholder="Search..."
+          className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"
         />
-        <Search className="p-1.5 pr-2 h-10 w-10 rounded-e-md text-background bg-white" />
       </div>
       <div className="flex gap-3 w-72 justify-end">
         <div className="flex justify-center items-center rounded-md w-10 h-10">

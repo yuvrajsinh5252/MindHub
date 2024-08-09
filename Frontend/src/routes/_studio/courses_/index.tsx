@@ -1,15 +1,15 @@
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useToast } from '@/components/ui/use-toast';
-import { uploadCourse, useCreatorCourse, useGithubUser } from '@/querries/db';
+import { uploadCourse, useGithubUser } from '@/querries/db';
 import { useMutation } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router'
-import { Loader2, PlusIcon, X } from 'lucide-react';
+import { PlusIcon, X } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import CouresUpload1 from '@/components/courses/CourseUpload-1';
 import CouresUpload2 from '@/components/courses/CourseUpload-2';
 import { CourseContext } from '@/components/courses/CourseContext';
-import CourseBox from '@/components/courses/CourseBox';
+import CourseTable from '@/components/courses/Course-table';
 
 export const Route = createFileRoute('/_studio/courses/')({
   component: creatorStudio,
@@ -25,7 +25,6 @@ function creatorStudio() {
 
   const { data: user, isSuccess, error, isLoading: userLoading } = useGithubUser();
   const uploadMutation = useMutation({ mutationFn: uploadCourse })
-  const { data: courseData, isLoading } = useCreatorCourse({ variables: { id: user?.data.id }, enabled: !!user?.data.id });
 
   function handleCourseUpload() {
     if (isSuccess) {
@@ -57,10 +56,15 @@ function creatorStudio() {
   }, [uploadMutation.isSuccess]);
 
   return (
-    <div className='divide-y-2 dark:bg-secondary'>
+    <div className=' dark:bg-secondary'>
       <div className="flex justify-between p-2 pr-20 h-24 mb-2 font-[600]">
-        <div className="text-3xl my-auto font-semibold space-y-3">
-          Your Courses
+        <div>
+          <div className="text-3xl my-auto font-semibold space-y-3">
+            Your Courses
+          </div>
+          <p className='text-gray-400'>
+            This is where you can view and manage your courses.
+          </p>
         </div>
         <div className='my-auto'>
           <Button
@@ -111,42 +115,9 @@ function creatorStudio() {
               </DialogFooter>
             </DialogContent>
           </Dialog>
-
         </div>
       </div>
-      <div>
-        {
-          isLoading || userLoading ? (
-            <div className="h-[calc(100vh-12rem)] flex justify-center items-center">
-              <div className="flex flex-col items-center gap-5">
-                <Loader2 className="h-12 w-12 text-blue-500 animate-spin" />
-                <div className="text-lg font-semibold dark:text-white text-gray-500 text-center w-72 px-5 py-2">
-                  Loading...
-                </div>
-              </div>
-            </div>
-          ) : (
-            courseData && courseData.data.length > 0 ? (
-              <div className='h-[calc(100vh-12rem)] flex pt-4 pl-4 gap-5'>
-                {
-                  courseData?.data.map((course: any, index: number) => (
-                    <CourseBox key={index} course={course} index={index} />
-                  ))
-                }
-              </div>
-            ) : (
-              <div className="h-[calc(100vh-12rem)] flex justify-center items-center">
-                <div className="flex flex-col items-center gap-5">
-                  <img src="/EmptyState.png" alt="image" className="rounded-md h-32 w-32" />
-                  <div className="text-lg font-semibold dark:text-white text-gray-500 text-center w-72 px-5 py-2">
-                    Pretty much empty here...
-                  </div>
-                </div>
-              </div>
-            )
-          )
-        }
-      </div>
+      <CourseTable user={user} userLoading={userLoading} />
     </div>
   );
 }

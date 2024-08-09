@@ -23,8 +23,8 @@ function Dashboard() {
     <div className='divide-y-2'>
       <SkeletonTheme {
         ...{
-          baseColor: theme === "dark" ? "#1B2037" : "#F3F4F6",
-          highlightColor: theme === "dark" ? "#030712" : "#E5E7EB",
+          baseColor: theme === "light" ? "#e5e7eb" : "#374151",
+          highlightColor: theme === "light" ? "#f3f4f6" : "#1f2937",
         }
       }>
         {

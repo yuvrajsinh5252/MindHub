@@ -19,7 +19,7 @@ function OnBoarding() {
 
   useEffect(() => {
     if (role?.data == "viewer" && pageParam == 1) navigate({ to: '/dashboard' })
-    else if (role?.data === "creator" && pageParam == 1) navigate({ to: '/creator-studio' })
+    else if (role?.data === "creator" && pageParam == 1) navigate({ to: '/creator-dashboard' })
   })
 
   if (roleError || userError) {
@@ -104,7 +104,7 @@ function Wizard({ role, setPageParam, refetch }: { role: string, setPageParam: a
                       await refetch()
                       console.log(role)
                       if (role === "viewer") navigate({ to: '/dashboard' })
-                      else if (role === "creator") navigate({ to: '/creator-studio' })
+                      else if (role === "creator") navigate({ to: '/creator-dashboard' })
                       else {
                         toast({
                           title: 'Error',

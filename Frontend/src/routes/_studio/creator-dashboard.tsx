@@ -1,13 +1,21 @@
 import { createFileRoute } from '@tanstack/react-router'
+import Dashboard from '@/components/studio/Dashboard';
 
 export const Route = createFileRoute('/_studio/creator-dashboard')({
   component: CreatorDashboard,
 })
 
 function CreatorDashboard() {
-  return (
-    <div className='flex gap-2'>
-      <div className='flex gap-2 flex-col w-8/12'>
+  return <Dashboard />;
+
+  // <div className='flex gap-2 flex-col'>
+  //   <div className='w-[567px]'>
+  //     <LinearChart />
+  //   </div>
+  //   <AnalyticsChart />
+
+
+  {/* <div className='flex gap-2 flex-col w-8/12'>
         <div className='w-full flex gap-2'>
           <div className='w-[70%] bg-slate-900 h-96 rounded-md'>
             dkalksjd
@@ -28,8 +36,6 @@ function CreatorDashboard() {
         </div>
       </div>
       <div className='w-4/12 rounded-md h-92 bg-slate-900'>
-
-      </div>
-    </div >
-  )
+      </div> */}
+  // </div >
 }
