@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 .env
+temp.http
 bun.lockb
 yarn.lock
 pnpm-lock.yaml

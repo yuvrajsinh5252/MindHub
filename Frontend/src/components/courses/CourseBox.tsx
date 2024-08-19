@@ -29,7 +29,7 @@ export default function CourseBox({ course, index }: CourseProps) {
               <div className="text-sm text-gray-400 mb-2">{course.category}</div>
             </div>
             <Link
-              to={`/browsecourse/${course.file_id}`}
+              to={`/browsecourse/${course.id}`}
               className={buttonVariants({
                 variant: "secondary",
                 size: "sm",
