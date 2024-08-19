@@ -2,6 +2,10 @@
 
 This is a project that aims to create a platform for people to share their knowledge and learn from others.
 
+## Preview
+
+![preview](https://github.com/user-attachments/assets/d928c8b8-3b91-44b2-91a9-ea60ba792bc2)
+
 ## Getting Started
 
 ### Frontend
