@@ -1,5 +1,5 @@
 const CLIENT_ID = process.env.CLIENT_ID;
-const CLIENT_SECRET = "150f2ddc96fec75c84ceaf036e5c42dfd02394d5";
+const CLIENT_SECRET = process.env.CLIENT_SECRECT;
 
 // github authentication part->
 
