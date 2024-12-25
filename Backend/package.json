@@ -3,7 +3,7 @@
   "version": "1.0.50",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts",
+    "dev": "bun run --watch src/index.ts --host 0.0.0.0",
     "generate": "drizzle-kit generate:pg --schema ./src/db/schema.ts --out=./src/db/migrations",
     "migrate": "bun run ./src/db/migrate.ts",
     "studio": "drizzle-kit studio"

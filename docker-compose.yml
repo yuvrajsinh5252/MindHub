@@ -1,0 +1,22 @@
+name: mindhub
+
+services:
+  frontend:
+    image: mindhub-frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file: ./frontend/.env
+    ports:
+      - "5173:5173"
+
+  backend:
+    image: mindhub-backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file: ./backend/.env
+    ports:
+      - "3000:3000"

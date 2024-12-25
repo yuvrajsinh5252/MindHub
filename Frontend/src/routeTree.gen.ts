@@ -91,50 +91,86 @@ const StudioCoursesVideoIdRoute = StudioCoursesVideoIdImport.update({
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
     '/_studio': {
+      id: '/_studio'
+      path: ''
+      fullPath: ''
       preLoaderRoute: typeof StudioImport
       parentRoute: typeof rootRoute
     }
     '/_user': {
+      id: '/_user'
+      path: ''
+      fullPath: ''
       preLoaderRoute: typeof UserImport
       parentRoute: typeof rootRoute
     }
     '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
       preLoaderRoute: typeof LoginImport
       parentRoute: typeof rootRoute
     }
     '/onboarding': {
+      id: '/onboarding'
+      path: '/onboarding'
+      fullPath: '/onboarding'
       preLoaderRoute: typeof OnboardingImport
       parentRoute: typeof rootRoute
     }
     '/_studio/creator-dashboard': {
+      id: '/_studio/creator-dashboard'
+      path: '/creator-dashboard'
+      fullPath: '/creator-dashboard'
       preLoaderRoute: typeof StudioCreatorDashboardImport
       parentRoute: typeof StudioImport
     }
     '/_user/Mycourses': {
+      id: '/_user/Mycourses'
+      path: '/Mycourses'
+      fullPath: '/Mycourses'
       preLoaderRoute: typeof UserMycoursesImport
       parentRoute: typeof UserImport
     }
     '/_user/dashboard': {
+      id: '/_user/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
       preLoaderRoute: typeof UserDashboardImport
       parentRoute: typeof UserImport
     }
     '/_studio/courses/$videoId': {
+      id: '/_studio/courses/$videoId'
+      path: '/courses/$videoId'
+      fullPath: '/courses/$videoId'
       preLoaderRoute: typeof StudioCoursesVideoIdImport
       parentRoute: typeof StudioImport
     }
     '/_user/browsecourse/$courseId': {
+      id: '/_user/browsecourse/$courseId'
+      path: '/browsecourse/$courseId'
+      fullPath: '/browsecourse/$courseId'
       preLoaderRoute: typeof UserBrowsecourseCourseIdImport
       parentRoute: typeof UserImport
     }
     '/_studio/courses/': {
+      id: '/_studio/courses/'
+      path: '/courses'
+      fullPath: '/courses'
       preLoaderRoute: typeof StudioCoursesIndexImport
       parentRoute: typeof StudioImport
     }
     '/_user/browsecourse/': {
+      id: '/_user/browsecourse/'
+      path: '/browsecourse'
+      fullPath: '/browsecourse'
       preLoaderRoute: typeof UserBrowsecourseIndexImport
       parentRoute: typeof UserImport
     }
@@ -143,21 +179,214 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren([
-  IndexRoute,
-  StudioRoute.addChildren([
-    StudioCreatorDashboardRoute,
-    StudioCoursesVideoIdRoute,
-    StudioCoursesIndexRoute,
-  ]),
-  UserRoute.addChildren([
-    UserMycoursesRoute,
-    UserDashboardRoute,
-    UserBrowsecourseCourseIdRoute,
-    UserBrowsecourseIndexRoute,
-  ]),
-  LoginRoute,
-  OnboardingRoute,
-])
+interface StudioRouteChildren {
+  StudioCreatorDashboardRoute: typeof StudioCreatorDashboardRoute
+  StudioCoursesVideoIdRoute: typeof StudioCoursesVideoIdRoute
+  StudioCoursesIndexRoute: typeof StudioCoursesIndexRoute
+}
+
+const StudioRouteChildren: StudioRouteChildren = {
+  StudioCreatorDashboardRoute: StudioCreatorDashboardRoute,
+  StudioCoursesVideoIdRoute: StudioCoursesVideoIdRoute,
+  StudioCoursesIndexRoute: StudioCoursesIndexRoute,
+}
+
+const StudioRouteWithChildren =
+  StudioRoute._addFileChildren(StudioRouteChildren)
+
+interface UserRouteChildren {
+  UserMycoursesRoute: typeof UserMycoursesRoute
+  UserDashboardRoute: typeof UserDashboardRoute
+  UserBrowsecourseCourseIdRoute: typeof UserBrowsecourseCourseIdRoute
+  UserBrowsecourseIndexRoute: typeof UserBrowsecourseIndexRoute
+}
+
+const UserRouteChildren: UserRouteChildren = {
+  UserMycoursesRoute: UserMycoursesRoute,
+  UserDashboardRoute: UserDashboardRoute,
+  UserBrowsecourseCourseIdRoute: UserBrowsecourseCourseIdRoute,
+  UserBrowsecourseIndexRoute: UserBrowsecourseIndexRoute,
+}
+
+const UserRouteWithChildren = UserRoute._addFileChildren(UserRouteChildren)
+
+export interface FileRoutesByFullPath {
+  '/': typeof IndexRoute
+  '': typeof UserRouteWithChildren
+  '/login': typeof LoginRoute
+  '/onboarding': typeof OnboardingRoute
+  '/creator-dashboard': typeof StudioCreatorDashboardRoute
+  '/Mycourses': typeof UserMycoursesRoute
+  '/dashboard': typeof UserDashboardRoute
+  '/courses/$videoId': typeof StudioCoursesVideoIdRoute
+  '/browsecourse/$courseId': typeof UserBrowsecourseCourseIdRoute
+  '/courses': typeof StudioCoursesIndexRoute
+  '/browsecourse': typeof UserBrowsecourseIndexRoute
+}
+
+export interface FileRoutesByTo {
+  '/': typeof IndexRoute
+  '': typeof UserRouteWithChildren
+  '/login': typeof LoginRoute
+  '/onboarding': typeof OnboardingRoute
+  '/creator-dashboard': typeof StudioCreatorDashboardRoute
+  '/Mycourses': typeof UserMycoursesRoute
+  '/dashboard': typeof UserDashboardRoute
+  '/courses/$videoId': typeof StudioCoursesVideoIdRoute
+  '/browsecourse/$courseId': typeof UserBrowsecourseCourseIdRoute
+  '/courses': typeof StudioCoursesIndexRoute
+  '/browsecourse': typeof UserBrowsecourseIndexRoute
+}
+
+export interface FileRoutesById {
+  __root__: typeof rootRoute
+  '/': typeof IndexRoute
+  '/_studio': typeof StudioRouteWithChildren
+  '/_user': typeof UserRouteWithChildren
+  '/login': typeof LoginRoute
+  '/onboarding': typeof OnboardingRoute
+  '/_studio/creator-dashboard': typeof StudioCreatorDashboardRoute
+  '/_user/Mycourses': typeof UserMycoursesRoute
+  '/_user/dashboard': typeof UserDashboardRoute
+  '/_studio/courses/$videoId': typeof StudioCoursesVideoIdRoute
+  '/_user/browsecourse/$courseId': typeof UserBrowsecourseCourseIdRoute
+  '/_studio/courses/': typeof StudioCoursesIndexRoute
+  '/_user/browsecourse/': typeof UserBrowsecourseIndexRoute
+}
+
+export interface FileRouteTypes {
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths:
+    | '/'
+    | ''
+    | '/login'
+    | '/onboarding'
+    | '/creator-dashboard'
+    | '/Mycourses'
+    | '/dashboard'
+    | '/courses/$videoId'
+    | '/browsecourse/$courseId'
+    | '/courses'
+    | '/browsecourse'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/'
+    | ''
+    | '/login'
+    | '/onboarding'
+    | '/creator-dashboard'
+    | '/Mycourses'
+    | '/dashboard'
+    | '/courses/$videoId'
+    | '/browsecourse/$courseId'
+    | '/courses'
+    | '/browsecourse'
+  id:
+    | '__root__'
+    | '/'
+    | '/_studio'
+    | '/_user'
+    | '/login'
+    | '/onboarding'
+    | '/_studio/creator-dashboard'
+    | '/_user/Mycourses'
+    | '/_user/dashboard'
+    | '/_studio/courses/$videoId'
+    | '/_user/browsecourse/$courseId'
+    | '/_studio/courses/'
+    | '/_user/browsecourse/'
+  fileRoutesById: FileRoutesById
+}
+
+export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
+  StudioRoute: typeof StudioRouteWithChildren
+  UserRoute: typeof UserRouteWithChildren
+  LoginRoute: typeof LoginRoute
+  OnboardingRoute: typeof OnboardingRoute
+}
+
+const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
+  StudioRoute: StudioRouteWithChildren,
+  UserRoute: UserRouteWithChildren,
+  LoginRoute: LoginRoute,
+  OnboardingRoute: OnboardingRoute,
+}
+
+export const routeTree = rootRoute
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()
 
 /* prettier-ignore-end */
+
+/* ROUTE_MANIFEST_START
+{
+  "routes": {
+    "__root__": {
+      "filePath": "__root.tsx",
+      "children": [
+        "/",
+        "/_studio",
+        "/_user",
+        "/login",
+        "/onboarding"
+      ]
+    },
+    "/": {
+      "filePath": "index.tsx"
+    },
+    "/_studio": {
+      "filePath": "_studio.tsx",
+      "children": [
+        "/_studio/creator-dashboard",
+        "/_studio/courses/$videoId",
+        "/_studio/courses/"
+      ]
+    },
+    "/_user": {
+      "filePath": "_user.tsx",
+      "children": [
+        "/_user/Mycourses",
+        "/_user/dashboard",
+        "/_user/browsecourse/$courseId",
+        "/_user/browsecourse/"
+      ]
+    },
+    "/login": {
+      "filePath": "login.tsx"
+    },
+    "/onboarding": {
+      "filePath": "onboarding.tsx"
+    },
+    "/_studio/creator-dashboard": {
+      "filePath": "_studio/creator-dashboard.tsx",
+      "parent": "/_studio"
+    },
+    "/_user/Mycourses": {
+      "filePath": "_user/Mycourses.tsx",
+      "parent": "/_user"
+    },
+    "/_user/dashboard": {
+      "filePath": "_user/dashboard.tsx",
+      "parent": "/_user"
+    },
+    "/_studio/courses/$videoId": {
+      "filePath": "_studio/courses_/$videoId.tsx",
+      "parent": "/_studio"
+    },
+    "/_user/browsecourse/$courseId": {
+      "filePath": "_user/browsecourse_/$courseId.tsx",
+      "parent": "/_user"
+    },
+    "/_studio/courses/": {
+      "filePath": "_studio/courses_/index.tsx",
+      "parent": "/_studio"
+    },
+    "/_user/browsecourse/": {
+      "filePath": "_user/browsecourse_/index.tsx",
+      "parent": "/_user"
+    }
+  }
+}
+ROUTE_MANIFEST_END */
